@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Chaoyi_log.iml" filepath="$PROJECT_DIR$/Chaoyi_log.iml" />
-      <module fileurl="file://D:\apporject\Chaoyi_log\Chaoyi_log.iml" filepath="D:\apporject\Chaoyi_log\Chaoyi_log.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\apporject\Chaoyi_log\app\app.iml" filepath="D:\apporject\Chaoyi_log\app\app.iml" />
     </modules>
   </component>
 </project>

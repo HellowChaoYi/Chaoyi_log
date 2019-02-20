@@ -15,14 +15,14 @@ import client.ChaoYi.Model.Logintable;
 public class SqlDbhelper extends SQLiteOpenHelper{
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "Mysql.db";
-    private Class<Logintable> Logintable ;
+    private Class<Logintable> logintable ;
     public SqlDbhelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        AutoStringsql(db, Logintable);
+        AutoStringsql(db, logintable);
     }
 
     private void AutoStringsql(SQLiteDatabase db, Class<?> modelclass) {
@@ -33,6 +33,7 @@ public class SqlDbhelper extends SQLiteOpenHelper{
         Field[] fields =modelclass.getDeclaredFields();
 //        String res = null;
         for(Field field : fields ) {
+//            Logintable Lo = field.getAnnotation(Logintable.class);
             if(field.getType()== String.class) {
                 stringbuffer.append(field.getName()+" varchar,");
                 System.out.println(field.getName());
@@ -46,7 +47,7 @@ public class SqlDbhelper extends SQLiteOpenHelper{
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Autoonupsql(db,Logintable);
+        Autoonupsql(db,logintable);
         onCreate(db);
     }
 

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.lang.reflect.Field;
 
 import client.ChaoYi.Model.Logintable;
+import client.ChaoYi.Sqlitebase.Dbattribute.Attribute;
 
 /**
  * Created by WCY on 2019/2/19.
@@ -29,19 +30,19 @@ public class SqlDbhelper extends SQLiteOpenHelper{
         StringBuffer stringbuffer = new StringBuffer();
         stringbuffer.append("create table if not exists ");
         stringbuffer.append(modelclass.getSimpleName()+"(");
-
         Field[] fields =modelclass.getDeclaredFields();
-//        String res = null;
         for(Field field : fields ) {
-//            Logintable Lo = field.getAnnotation(Logintable.class);
+            Attribute attribute = field.getAnnotation(Attribute.class);
             if(field.getType()== String.class) {
-                stringbuffer.append(field.getName()+" varchar,");
+                stringbuffer.append(field.getName()+attribute.value()+" varchar,");
+
                 System.out.println(field.getName());
             }else if (field.getType() == Integer.class){
-                stringbuffer.append(field.getName()+" Integer,");
+                stringbuffer.append(field.getName()+attribute.value()+" Integer,");
                 System.out.println(field.getName());
             }
         }
+        stringbuffer.setCharAt(stringbuffer.length()-1, ')');
         db.execSQL(stringbuffer.toString());
     }
 

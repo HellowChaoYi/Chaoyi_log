@@ -14,41 +14,42 @@ import client.ChaoYi.Sqlitebase.Dbattribute.Attribute;
  */
 
 public class SqlDbhelper extends SQLiteOpenHelper{
+    private volatile static SqlDbhelper sqlDbhelper;
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "Mysql.db";
-    private Class<Logintable> logintable ;
+
+//    private Class<Logintable> logintable ;
     public SqlDbhelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        AutoStringsql(db, logintable);
+        AutoStringsql(db, Logintable.class);
     }
 
     private void AutoStringsql(SQLiteDatabase db, Class<?> modelclass) {
         StringBuffer stringbuffer = new StringBuffer();
         stringbuffer.append("create table if not exists ");
-        stringbuffer.append(modelclass.getSimpleName()+"(");
-        Field[] fields =modelclass.getDeclaredFields();
+        stringbuffer.append(Logintable.class.getSimpleName()+"(");
+        Field[] fields =Logintable.class.getDeclaredFields();
         for(Field field : fields ) {
             Attribute attribute = field.getAnnotation(Attribute.class);
             if(field.getType()== String.class) {
                 stringbuffer.append(field.getName()+attribute.value()+" varchar,");
-
-                System.out.println(field.getName());
+                System.out.println(attribute.value());
             }else if (field.getType() == Integer.class){
                 stringbuffer.append(field.getName()+attribute.value()+" Integer,");
-                System.out.println(field.getName());
             }
         }
         stringbuffer.setCharAt(stringbuffer.length()-1, ')');
+        System.out.println(stringbuffer.toString());
         db.execSQL(stringbuffer.toString());
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Autoonupsql(db,logintable);
+        Autoonupsql(db,Logintable.class);
         onCreate(db);
     }
 
@@ -56,4 +57,16 @@ public class SqlDbhelper extends SQLiteOpenHelper{
         String sql = "DROP TABLE IF EXISTS " + modelclass.getSimpleName();
         db.execSQL(sql);
     }
+
+//    public static synchronized SqlDbhelper getInstance(Context applicationContext) {
+//        if (sqlDbhelper == null) {
+//            synchronized (SqlDbhelper.class) {
+//                if (sqlDbhelper == null) {
+//                    sqlDbhelper = new SqlDbhelper(applicationContext);
+//                }
+//            }
+//        }
+//
+//        return sqlDbhelper;
+//    }
 }

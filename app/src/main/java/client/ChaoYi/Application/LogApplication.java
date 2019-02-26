@@ -16,7 +16,7 @@ public class LogApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        sqldbhelper = new SqlDbhelper(getApplicationContext());
-        logindatasource = new Logindatasource(sqldbhelper);
+//        sqldbhelper = new SqlDbhelper(getApplicationContext());
+//        logindatasource = new Logindatasource(sqldbhelper);
     }
 }

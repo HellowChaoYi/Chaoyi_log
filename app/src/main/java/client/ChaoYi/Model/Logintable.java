@@ -7,7 +7,7 @@ import client.ChaoYi.Sqlitebase.Dbattribute.Attribute;
  */
 
 public class Logintable {
-    @Attribute(" primary key autoincrement")
+    @Attribute(" primary key")
     public static String username;
     @Attribute("")
     public String password;

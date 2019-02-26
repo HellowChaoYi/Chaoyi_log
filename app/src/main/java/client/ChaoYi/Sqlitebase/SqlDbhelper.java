@@ -18,7 +18,7 @@ public class SqlDbhelper extends SQLiteOpenHelper{
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "Mysql.db";
 
-//    private Class<Logintable> logintable ;
+    public static final String LoginTable = Logintable.class.getSimpleName();
     public SqlDbhelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
@@ -31,20 +31,22 @@ public class SqlDbhelper extends SQLiteOpenHelper{
     private void AutoStringsql(SQLiteDatabase db, Class<?> modelclass) {
         StringBuffer stringbuffer = new StringBuffer();
         stringbuffer.append("create table if not exists ");
-        stringbuffer.append(Logintable.class.getSimpleName()+"(");
-        Field[] fields =Logintable.class.getDeclaredFields();
+        stringbuffer.append(modelclass.getSimpleName()+" (");
+        Field[] fields =modelclass.getDeclaredFields();
         for(Field field : fields ) {
             Attribute attribute = field.getAnnotation(Attribute.class);
             if(field.getType()== String.class) {
-                stringbuffer.append(field.getName()+attribute.value()+" varchar,");
+                stringbuffer.append(field.getName()+" varchar "+attribute.value()+",");//+attribute.value()
                 System.out.println(attribute.value());
             }else if (field.getType() == Integer.class){
-                stringbuffer.append(field.getName()+attribute.value()+" Integer,");
+                stringbuffer.append(field.getName()+" Integer "+attribute.value()+",");//
             }
         }
         stringbuffer.setCharAt(stringbuffer.length()-1, ')');
-        System.out.println(stringbuffer.toString());
+        System.out.println("stringbuffer: "+stringbuffer.toString());
         db.execSQL(stringbuffer.toString());
+//        String sql="create table if not exists test (state varchar , name  varchar,mac varchar)";
+//        db.execSQL(sql);
     }
 
     @Override
@@ -58,15 +60,4 @@ public class SqlDbhelper extends SQLiteOpenHelper{
         db.execSQL(sql);
     }
 
-//    public static synchronized SqlDbhelper getInstance(Context applicationContext) {
-//        if (sqlDbhelper == null) {
-//            synchronized (SqlDbhelper.class) {
-//                if (sqlDbhelper == null) {
-//                    sqlDbhelper = new SqlDbhelper(applicationContext);
-//                }
-//            }
-//        }
-//
-//        return sqlDbhelper;
-//    }
 }

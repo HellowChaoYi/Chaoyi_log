@@ -1,8 +1,8 @@
 package client.ChaoYi.Application;
 
 import android.app.Application;
-import android.content.Context;
 
+import client.ChaoYi.Sqlitebase.SqlDao.Logindatasource;
 import client.ChaoYi.Sqlitebase.SqlDbhelper;
 
 /**
@@ -12,11 +12,11 @@ import client.ChaoYi.Sqlitebase.SqlDbhelper;
 public class LogApplication extends Application {
     private LogApplication mapplication;
     private SqlDbhelper sqldbhelper;
+    private Logindatasource logindatasource;
     @Override
     public void onCreate() {
         super.onCreate();
-//        mapplication = this;
-//        sqldbhelper = SqlDbhelper.getInstance(getApplicationContext());
-
+        sqldbhelper = new SqlDbhelper(getApplicationContext());
+        logindatasource = new Logindatasource(sqldbhelper);
     }
 }

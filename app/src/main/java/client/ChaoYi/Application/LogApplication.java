@@ -17,11 +17,10 @@ public class LogApplication extends Application {
     public void onCreate() {
         super.onCreate();
         sqldbhelper = new SqlDbhelper(getApplicationContext());
-//        logindatasource = new Logindatasource(sqldbhelper);
+        logindatasource = new Logindatasource(getApplicationContext());
+        logindatasource.insert();
     }
     public static Logindatasource getDataSource() {
         return logindatasource;
-//        sqldbhelper = new SqlDbhelper(getApplicationContext());
-//        logindatasource = new Logindatasource(sqldbhelper);
     }
 }

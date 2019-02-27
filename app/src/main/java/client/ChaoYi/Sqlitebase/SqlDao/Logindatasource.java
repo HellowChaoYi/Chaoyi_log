@@ -30,14 +30,14 @@ public class Logindatasource {
             database = sqlDbhelper.getWritableDatabase();
             database.beginTransaction();
             ContentValues contentValues = new ContentValues();
-            contentValues.put("username", "Mr.wei");
+            contentValues.put("username", "Mr.Wei");
             contentValues.put("password", "123456");
-
             database.insertOrThrow(sqlDbhelper.LoginTable, null, contentValues);
             database.setTransactionSuccessful();
             return true;
         }catch (SQLiteConstraintException e){
-            Toast.makeText(context, "保存成功", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "保存成功", e);
+//            Toast.makeText(context, "保存成功", Toast.LENGTH_SHORT).show();
         }catch (Exception e){
             Log.e(TAG, "", e);
         }finally {

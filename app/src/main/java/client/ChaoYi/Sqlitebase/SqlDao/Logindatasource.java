@@ -32,6 +32,7 @@ public class Logindatasource {
             ContentValues contentValues = new ContentValues();
             contentValues.put("username", "Mr.wei");
             contentValues.put("password", "123456");
+
             database.insertOrThrow(sqlDbhelper.LoginTable, null, contentValues);
             database.setTransactionSuccessful();
             return true;

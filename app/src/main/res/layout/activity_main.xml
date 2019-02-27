@@ -4,18 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:background="@drawable/login"
     >
 
-        <client.ChaoYi.Ui.CricularImageView
-            android:id="@+id/girls01"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/login"
-            android:contentDescription="@string/app_name"
-            />
 
-    <!--</LinearLayout>-->
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="174dp"
+        app:srcCompat="@mipmap/ic_launcher_round" />
+
+
+    <EditText
+        android:id="@+id/pass_edit"
+        android:layout_width="210dip"
+        android:layout_height="40dip"
+        android:layout_below="@+id/name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="33dp"
+        android:background="@drawable/round_edittext"
+        android:drawableLeft="@mipmap/ic_lock"
+        android:gravity="center_vertical"
+        android:inputType="textPassword"
+        android:paddingBottom="5dip"
+        android:paddingTop="5dip"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Your name"
+        android:textColor="@color/white"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/vercode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
 
 
 </RelativeLayout >

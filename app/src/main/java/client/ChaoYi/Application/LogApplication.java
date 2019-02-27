@@ -12,14 +12,11 @@ import client.ChaoYi.Sqlitebase.SqlDbhelper;
 public class LogApplication extends Application {
     private LogApplication mapplication;
     private SqlDbhelper sqldbhelper;
-    private static Logindatasource logindatasource;
+    private Logindatasource logindatasource;
     @Override
     public void onCreate() {
         super.onCreate();
-        sqldbhelper = new SqlDbhelper(getApplicationContext());
-        logindatasource = new Logindatasource(getApplicationContext());
-    }
-    public static Logindatasource getDataSource() {
-        return logindatasource;
+//        sqldbhelper = new SqlDbhelper(getApplicationContext());
+//        logindatasource = new Logindatasource(sqldbhelper);
     }
 }

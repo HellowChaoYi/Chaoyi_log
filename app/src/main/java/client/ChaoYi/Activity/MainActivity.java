@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 LogApplication.getDataSource().insert();
-//                textView.setText(String.valueOf(res));
+                textView.setText("success");
             }
         });
     }

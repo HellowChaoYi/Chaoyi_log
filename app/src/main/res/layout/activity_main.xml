@@ -27,7 +27,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="33dp"
         android:background="@drawable/round_edittext"
-        android:drawableLeft="@mipmap/ic_lock"
+        android:drawableLeft="@mipmap/lock"
         android:gravity="center_vertical"
         android:inputType="textPassword"
         android:paddingBottom="5dip"

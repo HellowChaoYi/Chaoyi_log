@@ -1,8 +1,8 @@
 package client.ChaoYi.Activity;
 
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
+
+import android.content.Intent;
+import android.nfc.Tag;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,18 +12,26 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 import client.ChaoYi.R;
 import client.ChaoYi.Sqlitebase.SqlDao.Logindatasource;
-import client.ChaoYi.Sqlitebase.SqlDbhelper;
+
 import client.ChaoYi.Ui.until.StatusBarUtil;
 import client.ChaoYi.Until.GetVercode;
-import client.ChaoYi.Until.Sys;
+
+import dalvik.system.DexFile;
 
 /**
  * 项目练习--company
  */
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
     public ImageView image ;
     public TextView name,vercode;
     public EditText passedit;
@@ -44,15 +52,49 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
+//                    Log.i(TAG,passedit.getText().toString());
                     login(passedit.getText().toString());
                     return true;
                 }
                 return false;
             }
         });
+
+//        List<String > classNameList=getClassName("client.ChaoYi.Ui.until");
+//        for (int i=0;i<classNameList.size();i++){
+//            Log.e("hjo","获取到的类名："+classNameList.get(i));
+//        }
+
     }
+//    public List<String > getClassName(String packageName){
+//        List<String >classNameList=new ArrayList<String >();
+//        try {
+//
+//            DexFile df = new DexFile(this.getPackageCodePath());//通过DexFile查找当前的APK中可执行文件
+//            Enumeration<String> enumeration = df.entries();//获取df中的元素  这里包含了所有可执行的类名 该类名包含了包名+类名的方式
+//            while (enumeration.hasMoreElements()) {//遍历
+//                String className = (String) enumeration.nextElement();
+//
+//                if (className.contains(packageName)) {//在当前所有可执行的类里面查找包含有该包名的所有类
+//                    classNameList.add(className);
+//                }
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return  classNameList;
+//    }
+
     private void login(String text) {
-        logindatasource.select(text);
+//        Log.i(TAG,text);
+//        boolean res = logindatasource.select(text);
+//        if(res){
+//            Intent intent = new Intent(MainActivity.this,ListActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }else{
+//            Toast.makeText(getApplicationContext(),"登录错误，请检查密码", Toast.LENGTH_SHORT).show();
+//        }
     }
 
     public void setbackground(){

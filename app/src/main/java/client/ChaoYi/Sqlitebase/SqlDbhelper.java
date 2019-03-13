@@ -17,7 +17,7 @@ public class SqlDbhelper extends SQLiteOpenHelper{
     private volatile static SqlDbhelper sqlDbhelper;
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "Mysql.db";
-
+    public String name = "Logintable";
     public static final String LoginTable = Logintable.class.getSimpleName();
     public SqlDbhelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -36,17 +36,15 @@ public class SqlDbhelper extends SQLiteOpenHelper{
         for(Field field : fields ) {
             Attribute attribute = field.getAnnotation(Attribute.class);
             if(field.getType()== String.class) {
-                stringbuffer.append(field.getName()+" varchar "+attribute.value()+",");//+attribute.value()
+                stringbuffer.append(field.getName()+" varchar"+attribute.value()+",");//+attribute.value()
                 System.out.println(attribute.value());
             }else if (field.getType() == Integer.class){
-                stringbuffer.append(field.getName()+" Integer "+attribute.value()+",");//
+                stringbuffer.append(field.getName()+" Integer"+attribute.value()+",");//
             }
         }
         stringbuffer.setCharAt(stringbuffer.length()-1, ')');
         System.out.println("stringbuffer: "+stringbuffer.toString());
         db.execSQL(stringbuffer.toString());
-//        String sql="create table if not exists test (state varchar , name  varchar,mac varchar)";
-//        db.execSQL(sql);
     }
 
     @Override

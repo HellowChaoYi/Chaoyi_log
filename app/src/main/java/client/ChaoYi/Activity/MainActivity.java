@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+import client.ChaoYi.Model.Logintable;
 import client.ChaoYi.R;
 import client.ChaoYi.Sqlitebase.SqlDao.Logindatasource;
 
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
 //                    Log.i(TAG,passedit.getText().toString());
-                    login(passedit.getText().toString());
+                    login(new String[]{passedit.getText().toString()});
                     return true;
                 }
                 return false;
@@ -85,16 +86,17 @@ public class MainActivity extends AppCompatActivity {
 //        return  classNameList;
 //    }
 
-    private void login(String text) {
-//        Log.i(TAG,text);
-//        boolean res = logindatasource.select(text);
-//        if(res){
-//            Intent intent = new Intent(MainActivity.this,ListActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }else{
-//            Toast.makeText(getApplicationContext(),"登录错误，请检查密码", Toast.LENGTH_SHORT).show();
-//        }
+    private void login(String[] text) {
+        Log.i(TAG,"login");
+        logindatasource = new Logindatasource(getApplicationContext());
+        List<?> list = logindatasource.select("password",text);
+        if(!list.isEmpty()){
+            Intent intent = new Intent(MainActivity.this,ListActivity.class);
+            startActivity(intent);
+            finish();
+        }else{
+            Toast.makeText(getApplicationContext(),"登录错误，请检查密码", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void setbackground(){

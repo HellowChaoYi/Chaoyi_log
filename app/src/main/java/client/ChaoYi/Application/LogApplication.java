@@ -2,6 +2,8 @@ package client.ChaoYi.Application;
 
 import android.app.Application;
 
+import java.util.ArrayList;
+
 import client.ChaoYi.Sqlitebase.SqlDao.Logindatasource;
 import client.ChaoYi.Sqlitebase.SqlDbhelper;
 
@@ -18,7 +20,8 @@ public class LogApplication extends Application {
         super.onCreate();
         sqldbhelper = new SqlDbhelper(getApplicationContext());
         logindatasource = new Logindatasource(getApplicationContext());
-        logindatasource.insert();
+        ArrayList list = new ArrayList();
+        logindatasource.insert(list);
     }
     public static Logindatasource getDataSource() {
         return logindatasource;

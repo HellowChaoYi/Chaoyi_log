@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import client.ChaoYi.Model.Logintable;
 import client.ChaoYi.Sqlitebase.Dbattribute.ExecuteSQL;
@@ -27,14 +28,20 @@ public class Logindatasource implements ExecuteSQL {
     public Logindatasource(Context context) {
         this.context = context;
         sqlDbhelper = new SqlDbhelper(context);
-
     }
 
-
     @Override
-    public String select(String... text) {
-
-        return null;
+    public List<?> select(String id,String[] text) {
+        List<Logintable> arraylist = new ArrayList<>();
+        SQLiteDatabase db = sqlDbhelper.getReadableDatabase();
+        Cursor cursor= db.query(Logintable.class.getSimpleName(), null, "password = ?", text, null, null, null);
+        while(cursor.moveToNext()){
+            Logintable logintable = new Logintable();
+            logintable.setUsername(cursor.getString(cursor.getColumnIndex("username")));
+            logintable.setPassword(cursor.getString(cursor.getColumnIndex("password")));
+            arraylist.add(logintable);
+        }
+        return arraylist;
     }
 
     @Override
@@ -68,7 +75,7 @@ public class Logindatasource implements ExecuteSQL {
     }
 
     @Override
-    public void delete(String text) {
-
+    public boolean delete(String text) {
+        return true;
     }
 }

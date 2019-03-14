@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="client.ChaoYi.Activity.ListActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <client.ChaoYi.Ui.CustomTitleBar
+        android:id="@+id/titlebar"
+        android:background="#DCDCDC"
+
+        app:right_text="更多"
+        app:titlebar_type="11"
+        app:left_icon="@drawable/ic_arrow_back_black_24dp"
+        app:title="我是标题"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></client.ChaoYi.Ui.CustomTitleBar>
+
+
+</RelativeLayout>

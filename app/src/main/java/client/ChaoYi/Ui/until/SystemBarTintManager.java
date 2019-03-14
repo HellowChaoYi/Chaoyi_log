@@ -533,7 +533,7 @@ public class SystemBarTintManager {
          * Get the layout inset for any system UI that appears at the top of the screen.
          *
          * @param withActionBar True to include the height of the action bar, False otherwise.
-         * @return The layout inset (in pixels).
+         * @return The layout_title inset (in pixels).
          */
         public int getPixelInsetTop(boolean withActionBar) {
             return (mTranslucentStatusBar ? mStatusBarHeight : 0) + (withActionBar ? mActionBarHeight : 0);

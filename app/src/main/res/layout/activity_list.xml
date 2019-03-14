@@ -8,14 +8,16 @@
 
     <client.ChaoYi.Ui.CustomTitleBar
         android:id="@+id/titlebar"
-        android:background="#DCDCDC"
-
-        app:right_text="更多"
-        app:titlebar_type="11"
-        app:left_icon="@drawable/ic_arrow_back_black_24dp"
-        app:title="我是标题"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></client.ChaoYi.Ui.CustomTitleBar>
+        android:layout_height="wrap_content"
+
+        android:background="#DCDCDC"
+        app:left_icon="@drawable/ic_arrow_back_black_24dp"
+        app:right_text="更多"
+        app:title="我是标题"
+        app:titlebar_type="11">
+
+    </client.ChaoYi.Ui.CustomTitleBar>
 
 
 </RelativeLayout>

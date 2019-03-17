@@ -10,14 +10,20 @@
         android:id="@+id/titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:background="#DCDCDC"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         app:left_icon="@drawable/ic_arrow_back_black_24dp"
-        app:right_text="更多"
+        app:right_icon="@drawable/ic_insert_comment_black_24dp"
         app:title="我是标题"
         app:titlebar_type="11">
 
     </client.ChaoYi.Ui.CustomTitleBar>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/titlebar" />
 
 </RelativeLayout>

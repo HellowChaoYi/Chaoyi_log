@@ -17,6 +17,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import client.ChaoYi.R;
+
 /**
  * Created by Administrator on 2019/2/27.
  */
@@ -42,7 +44,7 @@ public class StatusBarUtil {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = activity.getWindow();
-            window.setStatusBarColor(colorId);
+            window.setStatusBarColor(activity.getResources().getColor(colorId));
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             //使用SystemBarTintManager,需要先将状态栏设置为透明
             setTranslucentStatus(activity);

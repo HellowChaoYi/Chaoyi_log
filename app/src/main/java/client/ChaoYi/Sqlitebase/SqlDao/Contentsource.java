@@ -6,42 +6,40 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import client.ChaoYi.Model.Contenttable;
 import client.ChaoYi.Model.Logintable;
 import client.ChaoYi.Sqlitebase.Dbattribute.ExecuteSQL;
-import client.ChaoYi.Sqlitebase.Dbattribute.insertsql;
 import client.ChaoYi.Sqlitebase.SqlDbhelper;
 
 /**
- * Created by Administrator on 2019/2/25.
+ * Created by WCY on 2019/3/17.
  */
 
-public class Logindatasource implements ExecuteSQL {
-    private static final String TAG = "Logindao";
+public class Contentsource implements ExecuteSQL {
+    private static final String TAG = "Contentdao";
     private Context context;
     private SQLiteDatabase database;
     private SqlDbhelper sqlDbhelper;
-    public Logindatasource(Context context) {
+    public Contentsource(Context context) {
         this.context = context;
         sqlDbhelper = new SqlDbhelper(context);
     }
-
     @Override
-    public List<?> select(String id,String[] text) {
-        List<Logintable> arraylist = new ArrayList<>();
+    public List<?> select(String id, String[] text) {
+        List<Contenttable> content = new ArrayList<>();
         SQLiteDatabase db = sqlDbhelper.getReadableDatabase();
-        Cursor cursor= db.query(sqlDbhelper.LoginTable, null, "password = ?", text, null, null, null);
+        Cursor cursor= db.query(sqlDbhelper.ContentTable, null, null, text, null, null, null);
         while(cursor.moveToNext()){
-            Logintable logintable = new Logintable();
-            logintable.setUsername(cursor.getString(cursor.getColumnIndex("username")));
-            logintable.setPassword(cursor.getString(cursor.getColumnIndex("password")));
-            arraylist.add(logintable);
+            Contenttable contenttable = new Contenttable();
+            contenttable.setCt_name(cursor.getString(cursor.getColumnIndex("ct_name")));
+
+            content.add(contenttable);
         }
-        return arraylist;
+        return content;
     }
 
     @Override
@@ -51,9 +49,9 @@ public class Logindatasource implements ExecuteSQL {
         try {
             database.beginTransaction();
             ContentValues contentValues = new ContentValues();
-            contentValues.put("username", "Mr.Wei");
-            contentValues.put("password", "123456");
-            database.insertOrThrow(sqlDbhelper.LoginTable, null, contentValues);
+            contentValues.put("ct_content", "123456");
+            contentValues.put("ct_name", "Mr.Wei");
+            database.insertOrThrow(sqlDbhelper.ContentTable, null, contentValues);
             database.setTransactionSuccessful();
 //            return true;
         }catch (SQLiteConstraintException e){
@@ -66,7 +64,6 @@ public class Logindatasource implements ExecuteSQL {
                 database.close();
             }
         }
-//        return false;
     }
 
     @Override
@@ -76,6 +73,6 @@ public class Logindatasource implements ExecuteSQL {
 
     @Override
     public boolean delete(String text) {
-        return true;
+        return false;
     }
 }

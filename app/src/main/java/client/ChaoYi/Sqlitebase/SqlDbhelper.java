@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.lang.reflect.Field;
 
+import client.ChaoYi.Model.Contenttable;
 import client.ChaoYi.Model.Logintable;
 import client.ChaoYi.Sqlitebase.Dbattribute.Attribute;
 
@@ -15,23 +16,25 @@ import client.ChaoYi.Sqlitebase.Dbattribute.Attribute;
 
 public class SqlDbhelper extends SQLiteOpenHelper{
     private volatile static SqlDbhelper sqlDbhelper;
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
     private static final String DB_NAME = "Mysql.db";
-    public String name = "Logintable";
+
     public static final String LoginTable = Logintable.class.getSimpleName();
+    public static final String ContentTable = Contenttable.class.getSimpleName();
     public SqlDbhelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        AutoStringsql(db, Logintable.class);
+        AutoStringsql(db, LoginTable,Logintable.class);
+        AutoStringsql(db, ContentTable,Contenttable.class);
     }
 
-    private void AutoStringsql(SQLiteDatabase db, Class<?> modelclass) {
+    private void AutoStringsql(SQLiteDatabase db, String Tablename, Class<?> modelclass) {
         StringBuffer stringbuffer = new StringBuffer();
         stringbuffer.append("create table if not exists ");
-        stringbuffer.append(modelclass.getSimpleName()+" (");
+        stringbuffer.append(Tablename+" (");
         Field[] fields =modelclass.getDeclaredFields();
         for(Field field : fields ) {
             Attribute attribute = field.getAnnotation(Attribute.class);

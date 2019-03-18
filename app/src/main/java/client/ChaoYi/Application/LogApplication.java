@@ -26,7 +26,7 @@ public class LogApplication extends Application {
         contentsource = new Contentsource(getApplicationContext());
         ArrayList list = new ArrayList();
         logindatasource.insert(list);
-        contentsource.insert(list);
+//        contentsource.insert(list);
     }
     public static Logindatasource getDataSource() {
         return logindatasource;

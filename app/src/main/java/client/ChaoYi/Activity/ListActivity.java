@@ -6,17 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import client.ChaoYi.Activity.Adapter.ListAdapter;
 import client.ChaoYi.Model.Contenttable;
-import client.ChaoYi.Model.Test;
 import client.ChaoYi.R;
 import client.ChaoYi.Sqlitebase.SqlDao.Contentsource;
 import client.ChaoYi.Ui.CustomTitleBar;
@@ -27,9 +23,6 @@ public class ListActivity extends AppCompatActivity {
     private CustomTitleBar mcustomTitlebar;
     private List<Fragment> mFragments;
 
-//    private Test[] cats = {new Test("布偶猫", R.mipmap.touxiang),
-//            new Test("异国短毛猫", R.mipmap.touxiang),
-//            new Test("波斯猫", R.mipmap.touxiang)};
     public List<Contenttable> contentlist = new ArrayList<>();
 
 
@@ -39,12 +32,11 @@ public class ListActivity extends AppCompatActivity {
 //        mFragments = new ArrayList<>(1);
 //        mFragments.add(ListFragment.newInstance("今日","a"));
 
-
         StatusBarUtil.setStatusBarColor(this,R.color.black);
         int height = StatusBarUtil.getStatusBarHeight(getApplicationContext());
         initview(height);
         initCats();
-        initcontent();
+
      }
 
     /**
@@ -74,8 +66,18 @@ public class ListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        mcustomTitlebar.setRightIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListActivity.this,SettextActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
+    /**
+     * 获取本地数据
+     */
     private void initCats() {
 
         contentlist.clear();
@@ -83,11 +85,8 @@ public class ListActivity extends AppCompatActivity {
         Contentsource contentsource = new Contentsource(getApplicationContext());
         contentlist = (List<Contenttable>) contentsource.select("1",null);
         Sys.o("listactivity",String.valueOf(contentlist.size()));
-//        for (int i = 0; i < 100; i++) {//随机添加 100 只猫的信息
-//            Random random = new Random();
-//            int index = random.nextInt(cats.length);
-//            catList.add(cats[index]);
-//        }
+
+        initcontent();
     }
 
 }

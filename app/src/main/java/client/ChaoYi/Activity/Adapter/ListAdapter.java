@@ -9,13 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+//import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import client.ChaoYi.Model.Contenttable;
-import client.ChaoYi.Model.Test;
 import client.ChaoYi.R;
 
 /**

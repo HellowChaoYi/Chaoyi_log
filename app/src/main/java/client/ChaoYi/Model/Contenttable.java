@@ -14,6 +14,8 @@ public class Contenttable {
     @Attribute("")
     public String ct_content;
     @Attribute("")
+    public String ct_title;
+    @Attribute("")
     public String ct_name;
 
     public String getCt_id() {

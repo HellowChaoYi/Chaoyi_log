@@ -21,9 +21,9 @@ import client.ChaoYi.R;
  * Created by WCY on 2019/3/16.
  */
 
-public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
+public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
     private Context context;
-
+    private OnItemClickListener mClickListener;
     private List<Contenttable> content = new ArrayList<>();
 
     public ListAdapter(List<Contenttable> content) {
@@ -31,17 +31,17 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     }
 
     @Override
-    public ListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (context == null) {//设置上下文环境
             context = parent.getContext();
         }
         View view = LayoutInflater.from(context).inflate(R.layout.cardview, parent, false);
-        return new ViewHolder(view);
+        return new ListViewHolder(view,mClickListener);
 
     }
 
     @Override
-    public void onBindViewHolder(ListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ListViewHolder holder, int position) {
 //        Test cat = content.get(position);
         Contenttable ct = content.get(position);
         holder.name.setText(ct.getCt_name());
@@ -52,19 +52,56 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public int getItemCount() {
         return content.size();
     }
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
-        ImageView image;
-        TextView name;
-        TextView time;
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-            cardView = (CardView) itemView;
-            image = (ImageView) itemView.findViewById(R.id.head_image);
-            name = (TextView) itemView.findViewById(R.id.head_name);
-            time = (TextView) itemView.findViewById(R.id.head_time);
-        }
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mClickListener = listener;
     }
+
+//    static class ViewHolder extends RecyclerView.ViewHolder {
+//        CardView cardView;
+//        ImageView image;
+//        TextView name;
+//        TextView time;
+//        public interface OnItemClickListener{
+//
+//            /**
+//             * 当RecyclerView某个被点击的时候回调
+//             * @param view 点击item的视图
+//             * @param data 点击得到的数据
+//             */
+//            void onItemClick(View view, String data);
+//
+//        }
+//
+//        private OnItemClickListener onItemClickListener;
+//
+//        /**
+//         * 设置RecyclerView某个的监听
+//         * @param onItemClickListener
+//         */
+//        public void setOnItemClickListener(OnItemClickListener onItemClickListener){
+//            this.onItemClickListener = onItemClickListener;
+//        }
+//        public ViewHolder(View itemView) {
+//            super(itemView);
+//            cardView = (CardView) itemView;
+//            image = (ImageView) itemView.findViewById(R.id.head_image);
+//            name = (TextView) itemView.findViewById(R.id.head_name);
+//            time = (TextView) itemView.findViewById(R.id.head_time);
+//
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    //Toast.makeText(mContext, "当前点击 "+ datas.get(getLayoutPosition()), Toast.LENGTH_SHORT).show();
+//
+//                    if(onItemClickListener != null){
+////                        onItemClickListener.onItemClick(v, datas.get(getLayoutPosition()));
+//
+//                    }
+//
+//                }
+//            });
+//        }
+//    }
 
 }

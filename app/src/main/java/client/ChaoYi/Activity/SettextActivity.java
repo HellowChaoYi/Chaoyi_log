@@ -5,13 +5,14 @@ import android.os.Bundle;
 
 import client.ChaoYi.R;
 import client.ChaoYi.Ui.until.StatusBarUtil;
+import client.ChaoYi.Until.Sys;
 
 public class SettextActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settext);
+        StatusBarUtil.setStatusBarDarkTheme(this,true);
 
-        StatusBarUtil.setStatusBarDarkTheme(this, true);
     }
 }

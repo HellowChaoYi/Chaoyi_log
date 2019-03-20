@@ -18,6 +18,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import client.ChaoYi.R;
+import client.ChaoYi.Until.Sys;
 
 /**
  * Created by Administrator on 2019/2/27.
@@ -116,7 +117,6 @@ public class StatusBarUtil {
             } else {//其他情况
                 return false;
             }
-
             return true;
         }
         return false;

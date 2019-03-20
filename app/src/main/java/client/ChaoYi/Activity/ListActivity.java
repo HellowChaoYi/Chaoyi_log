@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import client.ChaoYi.Activity.Adapter.ListAdapter;
+import client.ChaoYi.Activity.Adapter.OnItemClickListener;
 import client.ChaoYi.Model.Contenttable;
 import client.ChaoYi.R;
 import client.ChaoYi.Sqlitebase.SqlDao.Contentsource;
@@ -46,8 +47,16 @@ public class ListActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         recyclerView.setLayoutManager(layoutManager);
+
         ListAdapter listAdapter = new ListAdapter(contentlist);
         recyclerView.setAdapter(listAdapter);
+        listAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int postion) {
+                Intent init = new Intent(ListActivity.this,SettextActivity.class);
+                startActivity(init);
+            }
+        });
     }
 
     /**

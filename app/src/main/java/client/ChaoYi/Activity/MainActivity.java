@@ -26,6 +26,7 @@ import client.ChaoYi.Sqlitebase.SqlDao.Logindatasource;
 import client.ChaoYi.Ui.until.StatusBarUtil;
 import client.ChaoYi.Until.GetVercode;
 
+import client.ChaoYi.Until.Sys;
 import dalvik.system.DexFile;
 
 /**
@@ -111,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
 //            StatusBarUtil.setStatusBarColor(this,0x55000000);
 //        }else{
         StatusBarUtil.setStatusBarDarkTheme(this, false);
+
 //        }
     }
 

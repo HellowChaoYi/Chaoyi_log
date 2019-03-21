@@ -33,7 +33,7 @@ public class Logindatasource implements ExecuteSQL {
     @Override
     public List<?> select(String id,String[] text) {
         List<Logintable> arraylist = new ArrayList<>();
-        SQLiteDatabase db = sqlDbhelper.getReadableDatabase();
+        SQLiteDatabase db = sqlDbhelper.getWritableDatabase();
         Cursor cursor= db.query(sqlDbhelper.LoginTable, null, "password = ?", text, null, null, null);
         while(cursor.moveToNext()){
             Logintable logintable = new Logintable();

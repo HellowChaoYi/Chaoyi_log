@@ -45,7 +45,7 @@ public class Contentsource implements ExecuteSQL {
     @Override
     public void insert(ArrayList<?> list) {
         database= null;
-        database = sqlDbhelper.getWritableDatabase();
+        database = sqlDbhelper.getReadableDatabase();
         try {
             database.beginTransaction();
             ContentValues contentValues = new ContentValues();

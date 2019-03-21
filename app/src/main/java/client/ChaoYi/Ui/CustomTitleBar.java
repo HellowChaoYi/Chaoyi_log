@@ -48,7 +48,7 @@ public class CustomTitleBar extends RelativeLayout {
         TypedArray typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.CustomTitleBar);
         String title = typedArray.getString(R.styleable.CustomTitleBar_title);//标题
         int leftIcon = typedArray.getResourceId(R.styleable.CustomTitleBar_left_icon, R.drawable.ic_arrow_back_black_24dp);//左边图片
-        int rightIcon = typedArray.getResourceId(R.styleable.CustomTitleBar_right_icon, R.drawable.ic_arrow_back_black_24dp);//右边图片
+        int rightIcon = typedArray.getResourceId(R.styleable.CustomTitleBar_right_icon, R.drawable.ic_insert_comment_black_24dp);//右边图片
         String rightText = typedArray.getString(R.styleable.CustomTitleBar_right_text);//右边文字
         int titleBarType = typedArray.getInt(R.styleable.CustomTitleBar_titlebar_type, 10);//标题栏类型,默认为10
 
@@ -81,13 +81,13 @@ public class CustomTitleBar extends RelativeLayout {
 
     //右边图片点击事件
     public void setRightIconOnClickListener(OnClickListener l){
-        ivBack.setOnClickListener(l);
+        ivMore.setOnClickListener(l);
     }
 
-    //右边文字点击事件
-    public void setRightTextOnClickListener(OnClickListener l){
-        ivBack.setOnClickListener(l);
-    }
+//    //右边文字点击事件
+//    public void setRightTextOnClickListener(OnClickListener l){
+//        ivBack.setOnClickListener(l);
+//    }
 
 
 

@@ -23,7 +23,8 @@ import client.ChaoYi.Until.Sys;
 public class ListActivity extends AppCompatActivity {
     private CustomTitleBar mcustomTitlebar;
     private List<Fragment> mFragments;
-
+    private ListAdapter listAdapter;
+    private RecyclerView recyclerView;
     public List<Contenttable> contentlist = new ArrayList<>();
 
 
@@ -44,11 +45,14 @@ public class ListActivity extends AppCompatActivity {
      * 加载内容
      */
     private void initcontent() {
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         recyclerView.setLayoutManager(layoutManager);
+        inilist();
+    }
 
-        ListAdapter listAdapter = new ListAdapter(contentlist);
+    private void inilist() {
+        listAdapter = new ListAdapter(contentlist);
         recyclerView.setAdapter(listAdapter);
         listAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override

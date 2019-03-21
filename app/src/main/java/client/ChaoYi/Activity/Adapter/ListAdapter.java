@@ -45,6 +45,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
 //        Test cat = content.get(position);
         Contenttable ct = content.get(position);
         holder.name.setText(ct.getCt_name());
+        holder.time.setText(ct.getCt_name());
+        holder.name.setText(ct.getCt_name());
 //        Glide.with(context).load(ct.getImgId()).into(holder.image);
     }
 
@@ -57,51 +59,5 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
         this.mClickListener = listener;
     }
 
-//    static class ViewHolder extends RecyclerView.ViewHolder {
-//        CardView cardView;
-//        ImageView image;
-//        TextView name;
-//        TextView time;
-//        public interface OnItemClickListener{
-//
-//            /**
-//             * 当RecyclerView某个被点击的时候回调
-//             * @param view 点击item的视图
-//             * @param data 点击得到的数据
-//             */
-//            void onItemClick(View view, String data);
-//
-//        }
-//
-//        private OnItemClickListener onItemClickListener;
-//
-//        /**
-//         * 设置RecyclerView某个的监听
-//         * @param onItemClickListener
-//         */
-//        public void setOnItemClickListener(OnItemClickListener onItemClickListener){
-//            this.onItemClickListener = onItemClickListener;
-//        }
-//        public ViewHolder(View itemView) {
-//            super(itemView);
-//            cardView = (CardView) itemView;
-//            image = (ImageView) itemView.findViewById(R.id.head_image);
-//            name = (TextView) itemView.findViewById(R.id.head_name);
-//            time = (TextView) itemView.findViewById(R.id.head_time);
-//
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    //Toast.makeText(mContext, "当前点击 "+ datas.get(getLayoutPosition()), Toast.LENGTH_SHORT).show();
-//
-//                    if(onItemClickListener != null){
-////                        onItemClickListener.onItemClick(v, datas.get(getLayoutPosition()));
-//
-//                    }
-//
-//                }
-//            });
-//        }
-//    }
 
 }

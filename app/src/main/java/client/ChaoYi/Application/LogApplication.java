@@ -14,21 +14,11 @@ import client.ChaoYi.Sqlitebase.SqlDbhelper;
  */
 
 public class LogApplication extends Application {
-    private LogApplication mapplication;
-    private SqlDbhelper sqldbhelper;
-    private static Logindatasource logindatasource;
-    private static Contentsource contentsource;
+
     @Override
     public void onCreate() {
         super.onCreate();
-        sqldbhelper = new SqlDbhelper(getApplicationContext());
-        logindatasource = new Logindatasource(getApplicationContext());
-        contentsource = new Contentsource(getApplicationContext());
         ArrayList list = new ArrayList();
-        logindatasource.insert(list);
-//        contentsource.insert(list);
-    }
-    public static Logindatasource getDataSource() {
-        return logindatasource;
+        Logindatasource.getLogindatasource(getApplicationContext()).insert(list);
     }
 }

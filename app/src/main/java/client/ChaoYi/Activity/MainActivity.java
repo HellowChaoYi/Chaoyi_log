@@ -1,7 +1,9 @@
 package client.ChaoYi.Activity;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.nfc.Tag;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,10 +16,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Scanner;
 
 import client.ChaoYi.Model.Logintable;
 import client.ChaoYi.R;
@@ -66,7 +75,16 @@ public class MainActivity extends AppCompatActivity {
 //        for (int i=0;i<classNameList.size();i++){
 //            Log.e("hjo","获取到的类名："+classNameList.get(i));
 //        }
-
+        Log.i(TAG,getJson(getApplicationContext(), "login.json"));
+        String json = getJson(getApplicationContext(),"login.json");
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+//            for(int i = 0;i<jsonObject.length();i++){
+                Log.i(TAG,jsonObject.optString("username"));
+//            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 //    public List<String > getClassName(String packageName){
 //        List<String >classNameList=new ArrayList<String >();
@@ -86,11 +104,27 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //        return  classNameList;
 //    }
+public String getJson(Context context,String fileName) {
+
+    StringBuilder stringBuilder = new StringBuilder();
+    try {
+        AssetManager assetManager = context.getAssets();
+        BufferedReader bf = new BufferedReader(new InputStreamReader(
+                assetManager.open(fileName)));
+        String line;
+        while ((line = bf.readLine()) != null) {
+            stringBuilder.append(line);
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    return stringBuilder.toString();
+}
 
     private void login(String[] text) {
         Log.i(TAG,"login");
         logindatasource = new Logindatasource(getApplicationContext());
-        List<?> list = logindatasource.select("password",text);
+        List<?> list = logindatasource.selectwhere("password",text);
         if(!list.isEmpty()){
             Intent intent = new Intent(MainActivity.this,ListActivity.class);
             startActivity(intent);

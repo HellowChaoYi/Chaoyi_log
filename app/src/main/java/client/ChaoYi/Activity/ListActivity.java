@@ -96,7 +96,7 @@ public class ListActivity extends AppCompatActivity {
         contentlist.clear();
 
         Contentsource contentsource = new Contentsource(getApplicationContext());
-        contentlist = (List<Contenttable>) contentsource.select("1",null);
+        contentlist = (List<Contenttable>) contentsource.selectwhere("1",null);
         Sys.o("listactivity",String.valueOf(contentlist.size()));
 
         initcontent();

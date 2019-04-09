@@ -8,7 +8,8 @@ import java.util.List;
  */
 
 public interface ExecuteSQL {
-    public List<?> select(String id,String[] text);
+    public List<?> select();
+    public List<?> selectwhere(String id,String[] text);
     public void insert(ArrayList<?> list);
     public void updata(String text,ArrayList<?> list);
     public boolean delete(String text);

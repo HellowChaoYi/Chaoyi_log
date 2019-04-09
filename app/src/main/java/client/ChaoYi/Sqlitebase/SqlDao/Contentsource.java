@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import client.ChaoYi.Model.Contenttable;
-import client.ChaoYi.Model.Logintable;
 import client.ChaoYi.Sqlitebase.Dbattribute.ExecuteSQL;
 import client.ChaoYi.Sqlitebase.SqlDbhelper;
 
@@ -21,18 +20,33 @@ import client.ChaoYi.Sqlitebase.SqlDbhelper;
 
 public class Contentsource implements ExecuteSQL {
     private static final String TAG = "Contentdao";
+    private static Contentsource contentsource ;
     private Context context;
     private SQLiteDatabase database;
     private SqlDbhelper sqlDbhelper;
     public Contentsource(Context context) {
         this.context = context;
         sqlDbhelper = new SqlDbhelper(context);
+        database = sqlDbhelper.getReadableDatabase();
+    }
+    public static Contentsource getContentsource(Context context){
+        if (contentsource == null) {
+            synchronized (Contentsource.class) {
+                contentsource = new Contentsource(context);
+            }
+        }
+        return contentsource;
     }
     @Override
-    public List<?> select(String id, String[] text) {
+    public List<?> select() {
+        return null;
+    }
+
+    @Override
+    public List<?> selectwhere(String id, String[] text) {
         List<Contenttable> content = new ArrayList<>();
-        SQLiteDatabase db = sqlDbhelper.getReadableDatabase();
-        Cursor cursor= db.query(sqlDbhelper.ContentTable, null, null, text, null, null, null);
+
+        Cursor cursor= database.query(sqlDbhelper.ContentTable, null, null, text, null, null, null);
         while(cursor.moveToNext()){
             Contenttable contenttable = new Contenttable();
             contenttable.setCt_name(cursor.getString(cursor.getColumnIndex("ct_name")));
@@ -40,12 +54,12 @@ public class Contentsource implements ExecuteSQL {
             content.add(contenttable);
         }
         return content;
+
     }
 
     @Override
     public void insert(ArrayList<?> list) {
-        database= null;
-        database = sqlDbhelper.getReadableDatabase();
+
         try {
             database.beginTransaction();
             ContentValues contentValues = new ContentValues();

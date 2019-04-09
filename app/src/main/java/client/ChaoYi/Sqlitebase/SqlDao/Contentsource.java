@@ -9,6 +9,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import client.ChaoYi.Model.Contenttable;
 import client.ChaoYi.Sqlitebase.Dbattribute.ExecuteSQL;
@@ -58,7 +59,7 @@ public class Contentsource implements ExecuteSQL {
     }
 
     @Override
-    public void insert(ArrayList<?> list) {
+    public void insert(Map<String, String> list) {
 
         try {
             database.beginTransaction();

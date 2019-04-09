@@ -6,11 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.Toast;
 
-import java.lang.reflect.Field;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import client.ChaoYi.Model.Logintable;
 import client.ChaoYi.Sqlitebase.Dbattribute.ExecuteSQL;
@@ -60,36 +60,29 @@ public class Logindatasource implements ExecuteSQL {
     }
 
     @Override
-    public void insert(ArrayList<?> list) {
+    public void insert(Map<String, String> map) {
 //        database= null;
 //        database = sqlDbhelper.getWritableDatabase();
-        try {
+//        try {
             database.beginTransaction();
-            ContentValues contentValues = new ContentValues();
-            Field[] fields =Logintable.class.getDeclaredFields();
-            for(Field field : fields ) {
-                if(field.getType()== String.class) {
-
-                    System.out.println(field.getName());
-                }else if (field.getType() == Integer.class){
-
-                }
-            }
-            contentValues.put("username", "Mr.Wei");
-            contentValues.put("password", "123456");
-            database.insertOrThrow(sqlDbhelper.LoginTable, null, contentValues);
-            database.setTransactionSuccessful();
-//            return true;
-        }catch (SQLiteConstraintException e){
-            Log.e(TAG, "保存成功", e);
-        }catch (Exception e){
+        try {
+            insertsql.insert(map,database,sqlDbhelper.LoginTable);
+        } catch (Exception e) {
             Log.e(TAG, "sql error", e);
-        }finally {
-            if (database != null) {
-                database.endTransaction();
-                database.close();
-            }
         }
+        database.setTransactionSuccessful();
+        database.endTransaction();
+//            return true;
+//        }catch (SQLiteConstraintException e){
+//            Log.e(TAG, "保存成功", e);
+//        }catch (Exception e){
+//            Log.e(TAG, "sql error", e);
+//        }finally {
+//            if (database != null) {
+//                database.endTransaction();
+//                database.close();
+//            }
+//        }
 //        return false;
     }
 

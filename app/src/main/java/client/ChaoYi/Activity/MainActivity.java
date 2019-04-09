@@ -23,6 +23,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -70,21 +71,15 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
+        Field[] fields =Logintable.class.getDeclaredFields();
+        for(Field field : fields ) {
+            System.out.println(TAG+field.getName());
+        }
 //        List<String > classNameList=getClassName("client.ChaoYi.Ui.until");
 //        for (int i=0;i<classNameList.size();i++){
 //            Log.e("hjo","获取到的类名："+classNameList.get(i));
 //        }
-        Log.i(TAG,getJson(getApplicationContext(), "login.json"));
-        String json = getJson(getApplicationContext(),"login.json");
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-//            for(int i = 0;i<jsonObject.length();i++){
-                Log.i(TAG,jsonObject.optString("username"));
-//            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
     }
 //    public List<String > getClassName(String packageName){
 //        List<String >classNameList=new ArrayList<String >();
@@ -104,22 +99,7 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //        return  classNameList;
 //    }
-public String getJson(Context context,String fileName) {
 
-    StringBuilder stringBuilder = new StringBuilder();
-    try {
-        AssetManager assetManager = context.getAssets();
-        BufferedReader bf = new BufferedReader(new InputStreamReader(
-                assetManager.open(fileName)));
-        String line;
-        while ((line = bf.readLine()) != null) {
-            stringBuilder.append(line);
-        }
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-    return stringBuilder.toString();
-}
 
     private void login(String[] text) {
         Log.i(TAG,"login");

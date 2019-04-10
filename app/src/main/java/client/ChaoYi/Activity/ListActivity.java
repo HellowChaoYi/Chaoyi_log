@@ -14,6 +14,7 @@ import java.util.List;
 import client.ChaoYi.Activity.Adapter.ListAdapter;
 import client.ChaoYi.Activity.Adapter.OnItemClickListener;
 import client.ChaoYi.Model.Contenttable;
+import client.ChaoYi.Model.Logintable;
 import client.ChaoYi.R;
 import client.ChaoYi.Sqlitebase.SqlDao.Contentsource;
 import client.ChaoYi.Ui.CustomTitleBar;
@@ -96,7 +97,7 @@ public class ListActivity extends AppCompatActivity {
         contentlist.clear();
 
         Contentsource contentsource = new Contentsource(getApplicationContext());
-        contentlist = (List<Contenttable>) contentsource.selectwhere("1",null);
+        contentlist = (List<Contenttable>) contentsource.selectwhere(Logintable.class, "1",null);
         Sys.o("listactivity",String.valueOf(contentlist.size()));
 
         initcontent();

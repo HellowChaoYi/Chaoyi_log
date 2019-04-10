@@ -1,13 +1,9 @@
 package client.ChaoYi.Activity;
 
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.nfc.Tag;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -16,18 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
-import java.util.Scanner;
 
 import client.ChaoYi.Model.Logintable;
 import client.ChaoYi.R;
@@ -35,9 +21,6 @@ import client.ChaoYi.Sqlitebase.SqlDao.Logindatasource;
 
 import client.ChaoYi.Ui.until.StatusBarUtil;
 import client.ChaoYi.Until.GetVercode;
-
-import client.ChaoYi.Until.Sys;
-import dalvik.system.DexFile;
 
 /**
  * 项目练习--company
@@ -47,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     public ImageView image ;
     public TextView name,vercode;
     public EditText passedit;
-    public Logindatasource logindatasource;
+//    public Logindatasource<L> logindatasource;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,8 +86,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void login(String[] text) {
         Log.i(TAG,"login");
-        logindatasource = new Logindatasource(getApplicationContext());
-        List<?> list = logindatasource.selectwhere("password",text);
+
+        Logindatasource<Logintable> logindatasource = Logindatasource.getLogindatasource(getApplicationContext());
+        List<?> list = logindatasource.selectwhere(Logintable.class,"password",text);
         if(!list.isEmpty()){
             Intent intent = new Intent(MainActivity.this,ListActivity.class);
             startActivity(intent);

@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import client.ChaoYi.Model.Contenttable;
+import client.ChaoYi.Model.Logintable;
 import client.ChaoYi.Sqlitebase.Dbattribute.ExecuteSQL;
 import client.ChaoYi.Sqlitebase.SqlDbhelper;
 
@@ -25,6 +26,7 @@ public class Contentsource implements ExecuteSQL {
     private Context context;
     private SQLiteDatabase database;
     private SqlDbhelper sqlDbhelper;
+    private Contenttable contenttable;
     public Contentsource(Context context) {
         this.context = context;
         sqlDbhelper = new SqlDbhelper(context);
@@ -44,9 +46,9 @@ public class Contentsource implements ExecuteSQL {
     }
 
     @Override
-    public List<?> selectwhere(String id, String[] text) {
+    public List<?> selectwhere(Class<Logintable> logintableClass, String id, String[] text) {
         List<Contenttable> content = new ArrayList<>();
-
+//        List<?> list = Selectsql.Selectwhere(database,contenttable,sqlDbhelper.ContentTable,id,text);
         Cursor cursor= database.query(sqlDbhelper.ContentTable, null, null, text, null, null, null);
         while(cursor.moveToNext()){
             Contenttable contenttable = new Contenttable();

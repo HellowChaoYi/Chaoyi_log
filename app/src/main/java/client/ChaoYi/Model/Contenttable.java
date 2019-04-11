@@ -8,16 +8,22 @@ import client.ChaoYi.Sqlitebase.Dbattribute.Attribute;
 
 public class Contenttable {
     @Attribute(" primary key")
-    public String ct_id;
+    public static String ct_id;
     @Attribute("")
-    public String ct_data;
+    public static String ct_data;
     @Attribute("")
-    public String ct_content;
+    public static String ct_content;
     @Attribute("")
-    public String ct_title;
+    public static String ct_title;
     @Attribute("")
-    public String ct_name;
+    public static String ct_name;
+    public String getCt_title() {
+        return ct_title;
+    }
 
+    public void setCt_title(String ct_title) {
+        this.ct_title = ct_title;
+    }
     public String getCt_id() {
         return ct_id;
     }

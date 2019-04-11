@@ -9,7 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import client.ChaoYi.Activity.Adapter.ListAdapter;
 import client.ChaoYi.Activity.Adapter.OnItemClickListener;
@@ -78,6 +80,7 @@ public class ListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ListActivity.this,MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         mcustomTitlebar.setRightIconOnClickListener(new View.OnClickListener() {
@@ -85,6 +88,7 @@ public class ListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ListActivity.this,SettextActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -93,13 +97,21 @@ public class ListActivity extends AppCompatActivity {
      * 获取本地数据
      */
     private void initCats() {
-
         contentlist.clear();
+        Map<String,String> mmap = Contentsource.getContentsource(getApplicationContext()).select();
+        Contenttable contenttable = new Contenttable();
+        Iterator<Map.Entry<String, String>> it=mmap.entrySet().iterator();
+        while(it.hasNext()) {
+            Map.Entry<String,String> entry=it.next();
+            String key=entry.getKey();
+            String value=entry.getValue();
+            contenttable.setCt_name(value);
+            System.out.println(key+" "+value);
+        }
 
-        Contentsource contentsource = new Contentsource(getApplicationContext());
-        contentlist = (List<Contenttable>) contentsource.selectwhere(Logintable.class, "1",null);
-        Sys.o("listactivity",String.valueOf(contentlist.size()));
-
+//        Contentsource contentsource = new Contentsource(getApplicationContext());
+//        contentlist = (List<Contenttable>) contentsource.selectwhere(Logintable.class, "1",null);
+//        Sys.o("listactivity",String.valueOf(contentlist.size()));
         initcontent();
     }
 

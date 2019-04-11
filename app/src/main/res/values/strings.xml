@@ -5,5 +5,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="pk"> primary key</string>
+    <string name="title">日志</string>
+    <string name="content_edit">......请输入内容</string>
 
 </resources>

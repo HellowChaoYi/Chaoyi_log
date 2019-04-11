@@ -11,7 +11,7 @@ import java.util.Map;
  * Created by WCY on 2019/3/7.
  */
 
-public class insertsql  {
+public class Insertsql {
     public static void insert(Map<String, String> map, SQLiteDatabase database, String Tablename) throws  SQLException{
         ContentValues contentValues = new ContentValues();
         for (Map.Entry<String, String> entry : map.entrySet()) {

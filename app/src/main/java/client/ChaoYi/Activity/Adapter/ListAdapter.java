@@ -37,15 +37,14 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
         }
         View view = LayoutInflater.from(context).inflate(R.layout.cardview, parent, false);
         return new ListViewHolder(view,mClickListener);
-
     }
 
     @Override
     public void onBindViewHolder(ListViewHolder holder, int position) {
 //        Test cat = content.get(position);
         Contenttable ct = content.get(position);
-        holder.name.setText(ct.getCt_name());
-        holder.time.setText(ct.getCt_name());
+        holder.title_name.setText(ct.getCt_title());
+        holder.time.setText(ct.getCt_data());
         holder.name.setText(ct.getCt_name());
 //        Glide.with(context).load(ct.getImgId()).into(holder.image);
     }

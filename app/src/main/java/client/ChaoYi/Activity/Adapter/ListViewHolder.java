@@ -29,7 +29,6 @@ public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         name = (TextView) itemView.findViewById(R.id.head_name);
         time = (TextView) itemView.findViewById(R.id.head_time);
         title_name = (TextView) itemView.findViewById(R.id.head_title);
-
     }
 
     @Override

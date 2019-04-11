@@ -8,12 +8,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import client.ChaoYi.Model.Contenttable;
 import client.ChaoYi.Model.Logintable;
 import client.ChaoYi.Sqlitebase.Dbattribute.ExecuteSQL;
+import client.ChaoYi.Sqlitebase.Dbattribute.Insertsql;
+import client.ChaoYi.Sqlitebase.Dbattribute.Selectsql;
 import client.ChaoYi.Sqlitebase.SqlDbhelper;
 
 /**
@@ -26,7 +29,7 @@ public class Contentsource implements ExecuteSQL {
     private Context context;
     private SQLiteDatabase database;
     private SqlDbhelper sqlDbhelper;
-    private Contenttable contenttable;
+    private Class<?> modelclass=Contenttable.class;
     public Contentsource(Context context) {
         this.context = context;
         sqlDbhelper = new SqlDbhelper(context);
@@ -41,34 +44,48 @@ public class Contentsource implements ExecuteSQL {
         return contentsource;
     }
     @Override
-    public List<?> select() {
-        return null;
-    }
-
-    @Override
-    public List<?> selectwhere(Class<Logintable> logintableClass, String id, String[] text) {
-        List<Contenttable> content = new ArrayList<>();
-//        List<?> list = Selectsql.Selectwhere(database,contenttable,sqlDbhelper.ContentTable,id,text);
-        Cursor cursor= database.query(sqlDbhelper.ContentTable, null, null, text, null, null, null);
-        while(cursor.moveToNext()){
-            Contenttable contenttable = new Contenttable();
-            contenttable.setCt_name(cursor.getString(cursor.getColumnIndex("ct_name")));
-
-            content.add(contenttable);
+    public Map<String,String> select() {
+        Map map1 = new HashMap();
+        try{
+            map1= Selectsql.Selectwhere(database,modelclass,sqlDbhelper.ContentTable,null,null);
+        }catch (Exception e){
+            Log.e(TAG,"error",e);
         }
-        return content;
+        return map1;
+    }
+
+    @Override
+    public Map<String,String> selectwhere(String id, String[] text) {
+        Map map = new HashMap();
+        try{
+            map= Selectsql.Selectwhere(database,modelclass,sqlDbhelper.ContentTable,id,text);
+        }catch (Exception e){
+            Log.e(TAG,"error",e);
+        }
+        return map;
+//        List<Contenttable> content = new ArrayList<>();
+//        List<?> list = Selectsql.Selectwhere(database,contenttable,sqlDbhelper.ContentTable,id,text);
+//        Cursor cursor= database.query(sqlDbhelper.ContentTable, null, null, text, null, null, null);
+//        while(cursor.moveToNext()){
+//            Contenttable contenttable = new Contenttable();
+//            contenttable.setCt_name(cursor.getString(cursor.getColumnIndex("ct_name")));
+//
+//            content.add(contenttable);
+//        }
+//        return null;
 
     }
 
     @Override
-    public void insert(Map<String, String> list) {
+    public void insert(Map<String, String> map) {
+        database.beginTransaction();
 
         try {
-            database.beginTransaction();
-            ContentValues contentValues = new ContentValues();
-            contentValues.put("ct_content", "123456");
-            contentValues.put("ct_name", "Mr.Wei");
-            database.insertOrThrow(sqlDbhelper.ContentTable, null, contentValues);
+            Insertsql.insert(map,database,sqlDbhelper.ContentTable);
+//            ContentValues contentValues = new ContentValues();
+//            contentValues.put("ct_content", "123456");
+//            contentValues.put("ct_name", "Mr.Wei");
+//            database.insertOrThrow(sqlDbhelper.ContentTable, null, contentValues);
             database.setTransactionSuccessful();
 //            return true;
         }catch (SQLiteConstraintException e){

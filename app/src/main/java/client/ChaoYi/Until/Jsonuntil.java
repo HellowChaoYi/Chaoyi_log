@@ -9,8 +9,10 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -49,5 +51,16 @@ public class Jsonuntil {
             e.printStackTrace();
         }
         return map;
+    }
+
+    public static List maptolist(Map<String, String> map){
+        List list = new ArrayList();
+        Iterator iter = map.entrySet().iterator(); // 获得map的Iterator
+        while (iter.hasNext()) {
+            Map.Entry entry = (Map.Entry) iter.next();
+            list.add(entry.getKey());
+            list.add(entry.getValue());
+        }
+        return list;
     }
 }

@@ -13,7 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.reflect.Field;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import client.ChaoYi.Model.Logintable;
 import client.ChaoYi.R;
@@ -21,6 +23,8 @@ import client.ChaoYi.Sqlitebase.SqlDao.Logindatasource;
 
 import client.ChaoYi.Ui.until.StatusBarUtil;
 import client.ChaoYi.Until.GetVercode;
+import client.ChaoYi.Until.Jsonuntil;
+import client.ChaoYi.Until.Sys;
 
 /**
  * 项目练习--company
@@ -86,10 +90,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void login(String[] text) {
         Log.i(TAG,"login");
-
-        Logindatasource<Logintable> logindatasource = Logindatasource.getLogindatasource(getApplicationContext());
-        List<?> list = logindatasource.selectwhere(Logintable.class,"password",text);
-        if(!list.isEmpty()){
+        Logindatasource logindatasource = Logindatasource.getLogindatasource(getApplicationContext());
+        Map map = logindatasource.selectwhere("password",text);
+        if(!map.isEmpty()){
             Intent intent = new Intent(MainActivity.this,ListActivity.class);
             startActivity(intent);
             finish();

@@ -9,7 +9,7 @@ import java.util.Map;
  */
 
 public interface ExecuteSQL {
-    public Map select();
+    public List<?> select(Class<?> modelclass);
     public Map selectwhere(String id, String[] text);
     public void insert(Map<String, String> list);
     public void updata(String text,ArrayList<?> list);

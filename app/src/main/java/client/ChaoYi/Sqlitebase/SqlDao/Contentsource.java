@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +20,7 @@ import client.ChaoYi.Sqlitebase.Dbattribute.ExecuteSQL;
 import client.ChaoYi.Sqlitebase.Dbattribute.Insertsql;
 import client.ChaoYi.Sqlitebase.Dbattribute.Selectsql;
 import client.ChaoYi.Sqlitebase.SqlDbhelper;
+import client.ChaoYi.Until.Sys;
 
 /**
  * Created by WCY on 2019/3/17.
@@ -44,14 +47,14 @@ public class Contentsource implements ExecuteSQL {
         return contentsource;
     }
     @Override
-    public Map<String,String> select() {
-        Map map1 = new HashMap();
+    public List<?> select(Class<?> modelclass_1) {
+        List<?> list = new ArrayList<>();
         try{
-            map1= Selectsql.Selectwhere(database,modelclass,sqlDbhelper.ContentTable,null,null);
+            list = Selectsql.Select(database,modelclass_1,sqlDbhelper.ContentTable);
         }catch (Exception e){
             Log.e(TAG,"error",e);
         }
-        return map1;
+        return list;
     }
 
     @Override
@@ -63,13 +66,13 @@ public class Contentsource implements ExecuteSQL {
             Log.e(TAG,"error",e);
         }
         return map;
+
 //        List<Contenttable> content = new ArrayList<>();
 //        List<?> list = Selectsql.Selectwhere(database,contenttable,sqlDbhelper.ContentTable,id,text);
 //        Cursor cursor= database.query(sqlDbhelper.ContentTable, null, null, text, null, null, null);
 //        while(cursor.moveToNext()){
 //            Contenttable contenttable = new Contenttable();
 //            contenttable.setCt_name(cursor.getString(cursor.getColumnIndex("ct_name")));
-//
 //            content.add(contenttable);
 //        }
 //        return null;
@@ -79,25 +82,16 @@ public class Contentsource implements ExecuteSQL {
     @Override
     public void insert(Map<String, String> map) {
         database.beginTransaction();
-
         try {
             Insertsql.insert(map,database,sqlDbhelper.ContentTable);
-//            ContentValues contentValues = new ContentValues();
-//            contentValues.put("ct_content", "123456");
-//            contentValues.put("ct_name", "Mr.Wei");
-//            database.insertOrThrow(sqlDbhelper.ContentTable, null, contentValues);
-            database.setTransactionSuccessful();
-//            return true;
         }catch (SQLiteConstraintException e){
             Log.e(TAG, "保存成功", e);
         }catch (Exception e){
             Log.e(TAG, "sql error", e);
-        }finally {
-            if (database != null) {
-                database.endTransaction();
-                database.close();
-            }
         }
+        database.setTransactionSuccessful();
+        database.endTransaction();
+
     }
 
     @Override

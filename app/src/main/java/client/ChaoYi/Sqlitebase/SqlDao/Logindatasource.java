@@ -40,7 +40,7 @@ public class Logindatasource implements ExecuteSQL {
         return logindatasource;
     }
     @Override
-    public List<?> select() {
+    public List<?> select(Class<?> modelclass) {
         return null;
     }
 

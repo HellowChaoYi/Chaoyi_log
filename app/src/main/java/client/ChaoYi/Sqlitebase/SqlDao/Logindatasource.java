@@ -84,7 +84,7 @@ public class Logindatasource implements ExecuteSQL {
     }
 
     @Override
-    public boolean delete(String text) {
+    public boolean delete(String[] id,String[] text) {
         return true;
     }
 }

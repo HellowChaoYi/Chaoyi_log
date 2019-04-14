@@ -101,7 +101,7 @@ public class Contentsource implements ExecuteSQL {
 
 
     @Override
-    public boolean delete(String text) {
+    public boolean delete(String[] id,String[] text) {
         try {
             int i = Deletesql.delete(database,sqlDbhelper.ContentTable);
             if(i==0){

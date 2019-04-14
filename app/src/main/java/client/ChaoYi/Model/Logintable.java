@@ -10,7 +10,7 @@ public class Logintable {
     @Attribute(" primary key")
     public static String username;
     @Attribute("")
-    private String password;
+    public String password;
 
     public String getPassword() {
         return password;

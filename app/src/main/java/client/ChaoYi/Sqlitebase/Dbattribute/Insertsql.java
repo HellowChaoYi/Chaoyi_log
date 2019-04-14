@@ -12,7 +12,7 @@ import java.util.Map;
  */
 
 public class Insertsql {
-    public static void insert(Map<String, String> map, SQLiteDatabase database, String Tablename) throws  SQLException{
+    public static void insert(SQLiteDatabase database, String Tablename,Map<String, String> map) throws  SQLException{
         ContentValues contentValues = new ContentValues();
         for (Map.Entry<String, String> entry : map.entrySet()) {
             contentValues.put(entry.getKey(), entry.getValue());

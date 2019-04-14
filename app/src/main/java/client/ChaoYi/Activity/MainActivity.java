@@ -13,17 +13,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.reflect.Field;
-import java.util.Iterator;
-import java.util.List;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-import client.ChaoYi.Model.Logintable;
+import client.ChaoYi.Model.Contenttable;
 import client.ChaoYi.R;
 import client.ChaoYi.Sqlitebase.SqlDao.Logindatasource;
 
 import client.ChaoYi.Ui.until.StatusBarUtil;
 import client.ChaoYi.Until.GetVercode;
-import client.ChaoYi.Until.Jsonuntil;
 import client.ChaoYi.Until.Sys;
 
 /**
@@ -34,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     public ImageView image ;
     public TextView name,vercode;
     public EditText passedit;
-//    public Logindatasource<L> logindatasource;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,10 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-        Field[] fields =Logintable.class.getDeclaredFields();
-        for(Field field : fields ) {
-            System.out.println(TAG+field.getName());
-        }
+
 //        List<String > classNameList=getClassName("client.ChaoYi.Ui.until");
 //        for (int i=0;i<classNameList.size();i++){
 //            Log.e("hjo","获取到的类名："+classNameList.get(i));
@@ -114,7 +108,39 @@ public class MainActivity extends AppCompatActivity {
 //        }else{
         StatusBarUtil.setStatusBarDarkTheme(this, false);
 
+        try {
+            test(new Contenttable());
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
 //        }
     }
 
+    public void test(Object model)throws SecurityException,
+            NoSuchMethodException, IllegalArgumentException,
+            IllegalAccessException, InvocationTargetException, InstantiationException{
+        Field[] fields = model.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            if (field.getType() == String.class) {
+//                    Sys.o("TEST",field.getName());
+                String key = field.getName();
+                Sys.o("TEST",key);
+                field.setAccessible(true);
+                try {
+                    field.set(model, field.getType().getConstructor(field.getType()).newInstance("kou"));//field.getType().getConstructor(field.getType()).newInstance("kou")
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                // 调用getter方法获取属性值
+                Sys.o(TAG,field.get(model).toString());
+            }
+        }
+
+    }
 }

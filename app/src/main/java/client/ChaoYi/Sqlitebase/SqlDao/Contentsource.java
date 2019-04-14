@@ -1,26 +1,23 @@
 package client.ChaoYi.Sqlitebase.SqlDao;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import client.ChaoYi.Model.Contenttable;
-import client.ChaoYi.Model.Logintable;
+import client.ChaoYi.Sqlitebase.Dbattribute.Deletesql;
 import client.ChaoYi.Sqlitebase.Dbattribute.ExecuteSQL;
 import client.ChaoYi.Sqlitebase.Dbattribute.Insertsql;
 import client.ChaoYi.Sqlitebase.Dbattribute.Selectsql;
+import client.ChaoYi.Sqlitebase.Dbattribute.Updatesql;
 import client.ChaoYi.Sqlitebase.SqlDbhelper;
-import client.ChaoYi.Until.Sys;
 
 /**
  * Created by WCY on 2019/3/17.
@@ -47,14 +44,19 @@ public class Contentsource implements ExecuteSQL {
         return contentsource;
     }
     @Override
-    public List<?> select(Class<?> modelclass_1) {
+    public List<?> select(Object modelclass) {
         List<?> list = new ArrayList<>();
         try{
-            list = Selectsql.Select(database,modelclass_1,sqlDbhelper.ContentTable);
+            list = Selectsql.Select(database,modelclass,sqlDbhelper.ContentTable);
         }catch (Exception e){
             Log.e(TAG,"error",e);
         }
         return list;
+    }
+
+    @Override
+    public List<?> selectwhere(Object modelclass) {
+        return null;
     }
 
     @Override
@@ -66,32 +68,30 @@ public class Contentsource implements ExecuteSQL {
             Log.e(TAG,"error",e);
         }
         return map;
-
-//        List<Contenttable> content = new ArrayList<>();
-//        List<?> list = Selectsql.Selectwhere(database,contenttable,sqlDbhelper.ContentTable,id,text);
-//        Cursor cursor= database.query(sqlDbhelper.ContentTable, null, null, text, null, null, null);
-//        while(cursor.moveToNext()){
-//            Contenttable contenttable = new Contenttable();
-//            contenttable.setCt_name(cursor.getString(cursor.getColumnIndex("ct_name")));
-//            content.add(contenttable);
-//        }
-//        return null;
-
     }
 
     @Override
     public void insert(Map<String, String> map) {
         database.beginTransaction();
         try {
-            Insertsql.insert(map,database,sqlDbhelper.ContentTable);
+            Insertsql.insert(database,sqlDbhelper.ContentTable,map);
+            database.setTransactionSuccessful();
         }catch (SQLiteConstraintException e){
             Log.e(TAG, "保存成功", e);
         }catch (Exception e){
             Log.e(TAG, "sql error", e);
+        }finally {
+            database.endTransaction();
         }
-        database.setTransactionSuccessful();
-        database.endTransaction();
+    }
 
+    @Override
+    public void updata(Map<String, String> map, String[] id, String[] text) {
+        try {
+            Updatesql.update(database,sqlDbhelper.ContentTable,map,id,text);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -99,8 +99,19 @@ public class Contentsource implements ExecuteSQL {
 
     }
 
+
     @Override
     public boolean delete(String text) {
+        try {
+            int i = Deletesql.delete(database,sqlDbhelper.ContentTable);
+            if(i==0){
+                return false;
+            }else {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return false;
     }
 }

@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import client.ChaoYi.Model.Contenttable;
 import client.ChaoYi.Model.Logintable;
 import client.ChaoYi.Sqlitebase.Dbattribute.ExecuteSQL;
 import client.ChaoYi.Sqlitebase.Dbattribute.Selectsql;
@@ -40,7 +41,12 @@ public class Logindatasource implements ExecuteSQL {
         return logindatasource;
     }
     @Override
-    public List<?> select(Class<?> modelclass) {
+    public List<?> select(Object modelclass) {
+        return null;
+    }
+
+    @Override
+    public List<?> selectwhere(Object modelclass) {
         return null;
     }
 
@@ -59,12 +65,17 @@ public class Logindatasource implements ExecuteSQL {
     public void insert(Map<String, String> map) {
         database.beginTransaction();
         try {
-            Insertsql.insert(map,database,sqlDbhelper.LoginTable);
+            Insertsql.insert(database,sqlDbhelper.LoginTable,map);
         } catch (Exception e) {
             Log.e(TAG, "sql error", e);
         }
         database.setTransactionSuccessful();
         database.endTransaction();
+    }
+
+    @Override
+    public void updata(Map<String, String> map, String[] id, String[] text) {
+
     }
 
     @Override

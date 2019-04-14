@@ -22,6 +22,6 @@ public class LogApplication extends Application {
 //        Log.i(TAG, Jsonuntil.getJson(getApplicationContext(), "login.json"));
         String json =Jsonuntil.getJson(getApplicationContext(),"login.json");
         Map<String, String> map = Jsonuntil.jsontomap(json);
-        Logindatasource.getLogindatasource(getApplicationContext()).insert(map);
+//        Logindatasource.getLogindatasource(getApplicationContext()).insert(map);
     }
 }

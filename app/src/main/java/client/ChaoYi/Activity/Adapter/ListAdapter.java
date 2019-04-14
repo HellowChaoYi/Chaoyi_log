@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import client.ChaoYi.Model.Contenttable;
 import client.ChaoYi.R;
@@ -25,10 +26,13 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
     private Context context;
     private OnItemClickListener mClickListener;
     private List<Contenttable> content = new ArrayList<>();
-
+    private Map map;
     public ListAdapter(List<Contenttable> content) {
         this.content = content;
     }
+
+//    public ListAdapter(Map<String, String> mmap) {
+//    }
 
     @Override
     public ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

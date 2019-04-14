@@ -101,12 +101,11 @@ public class ListActivity extends AppCompatActivity {
      */
     private void initCats() {
         contentlist.clear();
-        List<Contenttable> mmasp = (List<Contenttable>) Contentsource.getContentsource(getApplicationContext()).select(Contenttable.class);
-//        for (int i =0;i<mmasp.size();i++){
-//            Sys.o(TAG,mmasp.get(i).getCt_content());
-//        }
-        Sys.o(TAG,String.valueOf(mmasp.size()));
-
+        contentlist = (List<Contenttable>) Contentsource.getContentsource(getApplicationContext()).select(new Contenttable());
+        Sys.o(TAG,String.valueOf(contentlist.size()));
+        for(int i=0;i<contentlist.size();i++){
+            Sys.o(TAG,contentlist.get(i).getCt_content());
+        }
 //        Iterator<Map.Entry<String, String>> it=mmap.entrySet().iterator();
 //        while(it.hasNext()) {
 //            Map.Entry<String,String> entry=it.next();

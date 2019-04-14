@@ -8,15 +8,15 @@ import client.ChaoYi.Sqlitebase.Dbattribute.Attribute;
 
 public class Contenttable {
     @Attribute(" primary key")
-    public static String ct_id;
+    public String ct_id;
     @Attribute("")
-    public static String ct_data;
+    public String ct_data;
     @Attribute("")
-    public static String ct_content;
+    public String ct_content;
     @Attribute("")
-    public static String ct_title;
+    public String ct_title;
     @Attribute("")
-    public static String ct_name;
+    public String ct_name;
     public String getCt_title() {
         return ct_title;
     }

@@ -32,7 +32,6 @@ public class Sys {
             field.setAccessible(true);
             if(field.getType()== String.class) {
                 map.put(field.getName(), (String) field.get(model));
-//                System.out.println("属性名:" + field.getName() + " 属性值:" + field.get(model));
             }
         }
         return map;
@@ -50,20 +49,9 @@ public class Sys {
                     if(key.equals(field.getName())){
 
                     }
-//                System.out.println("属性名:" + field.getName() + " 属性值:" + field.get(model));
                 }
             }
         }
     }
-//    public static void testReflect(Object model) throws SecurityException,
-//            NoSuchMethodException, IllegalArgumentException,
-//            IllegalAccessException, InvocationTargetException, InstantiationException {
-//        Class cls = model.getClass();
-//        Field[] fields = cls.getDeclaredFields();
-//        for(int i=0; i<fields.length; i++) {
-//            Field f = fields[i];
-//            f.setAccessible(true);
-//            System.out.println("属性名:" + f.getName() + " 属性值:" + f.get(model));
-//        }
-//    }
+
 }

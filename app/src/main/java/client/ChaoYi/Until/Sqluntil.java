@@ -10,7 +10,8 @@ public class Sqluntil {
         for(int i =0;i<id.length;i++){
             stringbuffer.append(id[i]+" =? and ");
         }
-        stringbuffer.replace(stringbuffer.length()-3, stringbuffer.length(), "");
+        stringbuffer.replace(stringbuffer.length()-4, stringbuffer.length(), "");
+        Sys.o("test",stringbuffer.toString());
         return stringbuffer.toString();
     }
 }

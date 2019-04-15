@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -32,8 +34,8 @@ public class ListActivity extends AppCompatActivity {
     private ListAdapter listAdapter;
     private RecyclerView recyclerView;
     public List<Contenttable> contentlist = new ArrayList<>();
-
-
+    private long mExitTime = 0;
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
@@ -46,7 +48,24 @@ public class ListActivity extends AppCompatActivity {
         initCats();
 
      }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN&&event.getRepeatCount() == 0) {
+            exit();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
+    public void exit() {
+        if ((System.currentTimeMillis() - mExitTime) > 2000) {
+            Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+            mExitTime = System.currentTimeMillis();
+        } else {
+            finish();
+            System.exit(0);
+        }
+    }
     /**
      * 加载内容
      */
@@ -64,10 +83,15 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int postion) {
                 Intent init = new Intent(ListActivity.this,SettextActivity.class);
+                init.putExtra("ct_title",contentlist.get(postion).getCt_title());
+                Sys.o(TAG,contentlist.get(postion).getCt_title());
                 startActivity(init);
+                finish();
             }
         });
     }
+
+
 
     /**
      *  加载标题栏
@@ -102,10 +126,10 @@ public class ListActivity extends AppCompatActivity {
     private void initCats() {
         contentlist.clear();
         contentlist = (List<Contenttable>) Contentsource.getContentsource(getApplicationContext()).select(new Contenttable());
-        Sys.o(TAG,String.valueOf(contentlist.size()));
-        for(int i=0;i<contentlist.size();i++){
-            Sys.o(TAG,contentlist.get(i).getCt_content());
-        }
+//        Sys.o(TAG,String.valueOf(contentlist.size()));
+//        for(int i=0;i<contentlist.size();i++){
+//            Sys.o(TAG,contentlist.get(i).getCt_content());
+//        }
 //        Iterator<Map.Entry<String, String>> it=mmap.entrySet().iterator();
 //        while(it.hasNext()) {
 //            Map.Entry<String,String> entry=it.next();
@@ -115,9 +139,6 @@ public class ListActivity extends AppCompatActivity {
 //            System.out.println(key+" "+value);
 //        }
 
-//        Contentsource contentsource = new Contentsource(getApplicationContext());
-//        contentlist = (List<Contenttable>) contentsource.selectwhere(Logintable.class, "1",null);
-//        Sys.o("listactivity",String.valueOf(contentlist.size()));
         initcontent();
     }
 

@@ -62,5 +62,4 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
         this.mClickListener = listener;
     }
 
-
 }

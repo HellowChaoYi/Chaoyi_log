@@ -99,11 +99,16 @@ public class Contentsource implements ExecuteSQL {
 
     }
 
+    @Override
+    public boolean delete() {
+        return false;
+    }
+
 
     @Override
     public boolean delete(String[] id,String[] text) {
         try {
-            int i = Deletesql.delete(database,sqlDbhelper.ContentTable);
+            int i = Deletesql.deletewhere(database,sqlDbhelper.ContentTable,id,text);
             if(i==0){
                 return false;
             }else {

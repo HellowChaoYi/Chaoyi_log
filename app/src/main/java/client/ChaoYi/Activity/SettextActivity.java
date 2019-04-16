@@ -1,5 +1,7 @@
 package client.ChaoYi.Activity;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import client.ChaoYi.Model.Logintable;
 import client.ChaoYi.R;
 import client.ChaoYi.Sqlitebase.SqlDao.Contentsource;
 import client.ChaoYi.Sqlitebase.SqlDao.Logindatasource;
+import client.ChaoYi.Ui.CommomDialog;
 import client.ChaoYi.Ui.until.StatusBarUtil;
 import client.ChaoYi.Until.Sys;
 
@@ -31,6 +34,7 @@ public class SettextActivity extends AppCompatActivity {
     public ImageView insert_image;
     public String update="0";
     public long mExitTime = 0;
+    public Context context = SettextActivity.this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,9 +115,23 @@ public class SettextActivity extends AppCompatActivity {
                 }else{
                     contentsource.insert(map);
                 }
-                startintent();
+                new CommomDialog(SettextActivity.this, R.style.dialog, Stringvalue(R.string.save), new CommomDialog.OnCloseListener() {
+                    @Override
+                    public void onClick(Dialog dialog, boolean confirm) {
+                        if(confirm){
+                            startintent();
+                            dialog.dismiss();
+                        }
+                    }
+
+                }).setTitle(Stringvalue(R.string.tishi)).show();
+
             }
         });
+    }
+
+    private String Stringvalue(int Rstring) {
+        return (String)context.getResources().getText(Rstring);
     }
 
 

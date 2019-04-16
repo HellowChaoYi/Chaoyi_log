@@ -1,11 +1,18 @@
 package client.ChaoYi.Activity;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -17,12 +24,16 @@ import java.util.List;
 import java.util.Map;
 
 import client.ChaoYi.Activity.Adapter.ListAdapter;
+import client.ChaoYi.Activity.Adapter.ListViewHolder;
 import client.ChaoYi.Activity.Adapter.OnItemClickListener;
+import client.ChaoYi.Activity.Adapter.OnRecyclerItemClickListener;
 import client.ChaoYi.Model.Contenttable;
 import client.ChaoYi.Model.Logintable;
 import client.ChaoYi.R;
 import client.ChaoYi.Sqlitebase.Dbattribute.Selectsql;
 import client.ChaoYi.Sqlitebase.SqlDao.Contentsource;
+import client.ChaoYi.Ui.AlertDialog;
+import client.ChaoYi.Ui.CommomDialog;
 import client.ChaoYi.Ui.CustomTitleBar;
 import client.ChaoYi.Ui.until.StatusBarUtil;
 import client.ChaoYi.Until.Sys;
@@ -35,6 +46,8 @@ public class ListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     public List<Contenttable> contentlist = new ArrayList<>();
     private long mExitTime = 0;
+    private String title_name;
+    public Context context = ListActivity.this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +58,8 @@ public class ListActivity extends AppCompatActivity {
         StatusBarUtil.setStatusBarColor(this,R.color.black);
         int height = StatusBarUtil.getStatusBarHeight(getApplicationContext());
         initview(height);
-        initCats();
-
+//        initCats();
+        updateWeather();
      }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -79,18 +92,40 @@ public class ListActivity extends AppCompatActivity {
     private void inilist() {
         listAdapter = new ListAdapter(contentlist);
         recyclerView.setAdapter(listAdapter);
-        listAdapter.setOnItemClickListener(new OnItemClickListener() {
+        recyclerView.addOnItemTouchListener(new OnRecyclerItemClickListener(recyclerView) {
             @Override
-            public void onItemClick(View view, int postion) {
+            public void onItemClick(RecyclerView.ViewHolder viewHolder) {
+                ListViewHolder viewHolder_1 = (ListViewHolder) viewHolder;
+                title_name = viewHolder_1.title_name.getText().toString();
                 Intent init = new Intent(ListActivity.this,SettextActivity.class);
-                init.putExtra("ct_title",contentlist.get(postion).getCt_title());
-                Sys.o(TAG,contentlist.get(postion).getCt_title());
+                init.putExtra("ct_title",title_name);
                 startActivity(init);
-                finish();
+            }
+
+            @Override
+            public void onLongClick(RecyclerView.ViewHolder viewHolder) {
+                ListViewHolder viewHolder_1 = (ListViewHolder) viewHolder;
+                title_name = viewHolder_1.title_name.getText().toString();
+                new CommomDialog(ListActivity.this, R.style.dialog, Stringvalue(R.string.delete), new CommomDialog.OnCloseListener() {
+                    @Override
+                    public void onClick(Dialog dialog, boolean confirm) {
+                        if(confirm){
+                            Contentsource contentsource = Contentsource.getContentsource(getApplicationContext());
+                            contentsource.delete(
+                                    new String[]{"ct_title"},
+                                    new String[]{title_name});
+                            updateWeather();
+                            dialog.dismiss();
+                        }
+                    }
+
+                }).setTitle(Stringvalue(R.string.tishi)).show();
             }
         });
     }
-
+    private String Stringvalue(int Rstring) {
+        return (String)context.getResources().getText(Rstring);
+    }
 
 
     /**
@@ -141,5 +176,30 @@ public class ListActivity extends AppCompatActivity {
 
         initcontent();
     }
+    private void updateWeather() {
+
+        new Thread(new Runnable(){
+            @Override
+            public void run() {
+                //耗时操作，完成之后发送消息给Handler，完成UI更新；
+                mHandler.sendEmptyMessage(0);
+
+            }
+        }).start();
+    }
+    @SuppressLint("HandlerLeak")
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    initCats();
+                default:
+                    break;
+            }
+        }
+
+    };
 
 }

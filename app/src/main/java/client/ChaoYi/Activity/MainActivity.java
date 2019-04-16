@@ -20,6 +20,7 @@ import client.ChaoYi.Model.Contenttable;
 import client.ChaoYi.R;
 import client.ChaoYi.Sqlitebase.SqlDao.Logindatasource;
 
+import client.ChaoYi.Ui.AlertDialog;
 import client.ChaoYi.Ui.until.StatusBarUtil;
 import client.ChaoYi.Until.GetVercode;
 import client.ChaoYi.Until.Sys;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     public ImageView image ;
     public TextView name,vercode;
     public EditText passedit;
+    private long mExitTime = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,10 +58,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        List<String > classNameList=getClassName("client.ChaoYi.Ui.until");
-//        for (int i=0;i<classNameList.size();i++){
-//            Log.e("hjo","获取到的类名："+classNameList.get(i));
-//        }
 
     }
 //    public List<String > getClassName(String packageName){
@@ -81,7 +79,23 @@ public class MainActivity extends AppCompatActivity {
 //        return  classNameList;
 //    }
 
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN&&event.getRepeatCount() == 0) {
+            exit();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+    public void exit() {
+        if ((System.currentTimeMillis() - mExitTime) > 2000) {
+            Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+            mExitTime = System.currentTimeMillis();
+        } else {
+            finish();
+            System.exit(0);
+        }
+    }
     private void login(String[] text) {
         Log.i(TAG,"login");
         Logindatasource logindatasource = Logindatasource.getLogindatasource(getApplicationContext());
@@ -108,39 +122,6 @@ public class MainActivity extends AppCompatActivity {
 //        }else{
         StatusBarUtil.setStatusBarDarkTheme(this, false);
 
-//        try {
-//            test(new Contenttable());
-//        } catch (NoSuchMethodException e) {
-//            e.printStackTrace();
-//        } catch (IllegalAccessException e) {
-//            e.printStackTrace();
-//        } catch (InvocationTargetException e) {
-//            e.printStackTrace();
-//        } catch (InstantiationException e) {
-//            e.printStackTrace();
-//        }
-//        }
     }
 
-    public void test(Object model)throws SecurityException,
-            NoSuchMethodException, IllegalArgumentException,
-            IllegalAccessException, InvocationTargetException, InstantiationException{
-        Field[] fields = model.getClass().getDeclaredFields();
-        for (Field field : fields) {
-            if (field.getType() == String.class) {
-//                    Sys.o("TEST",field.getName());
-                String key = field.getName();
-                Sys.o("TEST",key);
-                field.setAccessible(true);
-                try {
-                    field.set(model, field.getType().getConstructor(field.getType()).newInstance("kou"));//field.getType().getConstructor(field.getType()).newInstance("kou")
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                // 调用getter方法获取属性值
-                Sys.o(TAG,field.get(model).toString());
-            }
-        }
-
-    }
 }

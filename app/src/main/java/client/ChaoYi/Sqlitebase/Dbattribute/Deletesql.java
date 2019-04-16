@@ -3,6 +3,7 @@ package client.ChaoYi.Sqlitebase.Dbattribute;
 import android.database.sqlite.SQLiteDatabase;
 
 import client.ChaoYi.Until.Sqluntil;
+import client.ChaoYi.Until.Sys;
 
 /**
  * Created by WCY on 2019/4/14.

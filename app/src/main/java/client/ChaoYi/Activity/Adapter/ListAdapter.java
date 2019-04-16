@@ -40,7 +40,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
             context = parent.getContext();
         }
         View view = LayoutInflater.from(context).inflate(R.layout.cardview, parent, false);
-        return new ListViewHolder(view,mClickListener);
+        return new ListViewHolder(view);//,mClickListener
     }
 
     @Override

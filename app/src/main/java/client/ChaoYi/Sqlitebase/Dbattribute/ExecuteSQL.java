@@ -17,5 +17,6 @@ public interface ExecuteSQL {
     public void insert(Map<String, String> list);
     public void updata(Map<String,String> map,String[] id, String[] text);
     public void updata(String text,ArrayList<?> list);
+    public boolean delete();
     public boolean delete(String[] id,String[] text);
 }

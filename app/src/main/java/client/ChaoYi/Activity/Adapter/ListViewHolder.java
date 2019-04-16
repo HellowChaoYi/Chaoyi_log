@@ -12,18 +12,18 @@ import client.ChaoYi.R;
  * Created by WCY on 2019/3/20.
  */
 
-public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    CardView cardView;
-    ImageView image;
-    TextView name;
-    TextView time;
-    TextView title_name;
+public class ListViewHolder extends RecyclerView.ViewHolder  {//implements View.OnClickListener
+    public CardView cardView;
+    public ImageView image;
+    public TextView name;
+    public TextView time;
+    public TextView title_name;
     private OnItemClickListener mListener;// 声明自定义的接口
-    public ListViewHolder(View itemView,OnItemClickListener listener) {
+    public ListViewHolder(View itemView) {//,OnItemClickListener listener
         super(itemView);
-        mListener = listener;
+//        mListener = listener;
         // 为ItemView添加点击事件
-        itemView.setOnClickListener(this);
+//        itemView.setOnClickListener(this);
         cardView = (CardView) itemView;
         image = (ImageView) itemView.findViewById(R.id.head_image);
         name = (TextView) itemView.findViewById(R.id.head_name);
@@ -31,8 +31,8 @@ public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         title_name = (TextView) itemView.findViewById(R.id.head_title);
     }
 
-    @Override
-    public void onClick(View v) {
-        mListener.onItemClick(v, getPosition());
-    }
+//    @Override
+//    public void onClick(View v) {
+//        mListener.onItemClick(v, getPosition());
+//    }
 }

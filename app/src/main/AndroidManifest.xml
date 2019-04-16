@@ -24,15 +24,18 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/TranslucentTheme">
-        <activity android:name=".Activity.ListActivity">
+        <activity
+            android:name=".Activity.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.ListActivity" />
         <activity android:name=".Activity.SettextActivity" />
-        <activity android:name=".Activity.MainActivity" />
     </application>
 
 </manifest>

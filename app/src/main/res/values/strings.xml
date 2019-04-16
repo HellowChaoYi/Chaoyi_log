@@ -7,5 +7,7 @@
     <string name="pk"> primary key</string>
     <string name="title">日志</string>
     <string name="content_edit">......请输入内容</string>
-
+    <string name="tishi">提示</string>
+    <string name="delete">确认是否删除？</string>
+    <string name="save">确认是否保存？</string>
 </resources>

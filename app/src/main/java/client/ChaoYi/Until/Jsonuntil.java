@@ -3,6 +3,7 @@ package client.ChaoYi.Until;
 import android.content.Context;
 import android.content.res.AssetManager;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -68,24 +69,24 @@ public class Jsonuntil {
     }
 
     public static String listtojson(List<?> list) throws IllegalAccessException, InstantiationException{
-
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
         for (int i =0;i<list.size();i++){
-            Object model;
-
-//            model=list.get(i).getClass().newInstance();
-
             Field[] fields =list.get(i).getClass().getDeclaredFields();
             for (Field field : fields) {
                 if (field.getType() == String.class) {
                     String key = field.getName();
                     field.setAccessible(true);
-
-                    Sys.o("TEST", key);
-
+                    try {
+                        jsonObject.put(key,(String) field.get(list.get(i)));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    Sys.o("TEST", (String) field.get(list.get(i)));
                 }
             }
-
+            jsonArray.put(jsonObject);
         }
-        return  null;
+        return  jsonArray.toString();
     }
 }

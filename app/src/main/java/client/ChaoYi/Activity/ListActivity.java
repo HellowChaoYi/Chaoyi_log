@@ -179,7 +179,7 @@ public class ListActivity extends AppCompatActivity {
 //            System.out.println(key+" "+value);
 //        }
         try {
-            Jsonuntil.listtojson(contentlist);
+            Sys.o(TAG,Jsonuntil.listtojson(contentlist));
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {

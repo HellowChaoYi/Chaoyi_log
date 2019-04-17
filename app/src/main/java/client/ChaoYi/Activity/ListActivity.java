@@ -17,6 +17,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -27,6 +28,7 @@ import client.ChaoYi.Activity.Adapter.ListAdapter;
 import client.ChaoYi.Activity.Adapter.ListViewHolder;
 import client.ChaoYi.Activity.Adapter.OnItemClickListener;
 import client.ChaoYi.Activity.Adapter.OnRecyclerItemClickListener;
+import client.ChaoYi.Http.Okhttp;
 import client.ChaoYi.Model.Contenttable;
 import client.ChaoYi.Model.Logintable;
 import client.ChaoYi.R;
@@ -36,6 +38,7 @@ import client.ChaoYi.Ui.AlertDialog;
 import client.ChaoYi.Ui.CommomDialog;
 import client.ChaoYi.Ui.CustomTitleBar;
 import client.ChaoYi.Ui.until.StatusBarUtil;
+import client.ChaoYi.Until.Jsonuntil;
 import client.ChaoYi.Until.Sys;
 
 public class ListActivity extends AppCompatActivity {
@@ -57,6 +60,7 @@ public class ListActivity extends AppCompatActivity {
 
         StatusBarUtil.setStatusBarColor(this,R.color.black);
         int height = StatusBarUtil.getStatusBarHeight(getApplicationContext());
+
         initview(height);
 //        initCats();
         updateWeather();
@@ -86,6 +90,7 @@ public class ListActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         recyclerView.setLayoutManager(layoutManager);
+        mHandler.sendEmptyMessage(1);
         inilist();
     }
 
@@ -173,7 +178,15 @@ public class ListActivity extends AppCompatActivity {
 //            contenttable.setCt_name(value);
 //            System.out.println(key+" "+value);
 //        }
+        try {
+            Jsonuntil.listtojson(contentlist);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
 
+        post_data(new Contenttable());
         initcontent();
     }
     private void updateWeather() {
@@ -195,11 +208,31 @@ public class ListActivity extends AppCompatActivity {
             switch (msg.what) {
                 case 0:
                     initCats();
+                case 1:
+//                    post_data();
                 default:
                     break;
+
             }
         }
 
     };
 
+
+    private void post_data(Object model) {
+//        Okhttp oh = new Okhttp();
+//        oh.postdata(contentlist);
+//        Sys.o(TAG,model.getClass().toString());
+//        Field[] fields = model.getClass().getDeclaredFields();
+//        for (Field field : fields) {
+//            if (field.getType() == String.class) {
+//                String key = field.getName();
+//                field.setAccessible(true);
+//                Sys.o(TAG,key);
+//            }
+//        }
+//        for (int i=0;i<contentlist.size();i++){
+//            Sys.o(TAG,contentlist.get(i).getClass().toString());
+//        }
+    }
 }

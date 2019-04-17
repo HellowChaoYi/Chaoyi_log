@@ -5,6 +5,7 @@ import android.app.Application;
 import java.util.ArrayList;
 import java.util.Map;
 
+import client.ChaoYi.Http.Okhttp;
 import client.ChaoYi.Model.Logintable;
 import client.ChaoYi.Sqlitebase.SqlDao.Logindatasource;
 import client.ChaoYi.Until.Jsonuntil;
@@ -23,5 +24,6 @@ public class LogApplication extends Application {
         String json =Jsonuntil.getJson(getApplicationContext(),"login.json");
         Map<String, String> map = Jsonuntil.jsontomap(json);
         Logindatasource.getLogindatasource(getApplicationContext()).insert(map);
+
     }
 }

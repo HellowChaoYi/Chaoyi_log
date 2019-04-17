@@ -62,7 +62,7 @@ public class SettextActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN&&event.getRepeatCount() == 0) {
-            startintent();
+            alertdialog();
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -115,19 +115,22 @@ public class SettextActivity extends AppCompatActivity {
                 }else{
                     contentsource.insert(map);
                 }
-                new CommomDialog(SettextActivity.this, R.style.dialog, Stringvalue(R.string.save), new CommomDialog.OnCloseListener() {
-                    @Override
-                    public void onClick(Dialog dialog, boolean confirm) {
-                        if(confirm){
-                            startintent();
-                            dialog.dismiss();
-                        }
-                    }
-
-                }).setTitle(Stringvalue(R.string.tishi)).show();
+                alertdialog();
 
             }
         });
+    }
+    public void alertdialog(){
+        new CommomDialog(SettextActivity.this, R.style.dialog, Stringvalue(R.string.save), new CommomDialog.OnCloseListener() {
+            @Override
+            public void onClick(Dialog dialog, boolean confirm) {
+                if(confirm){
+                    startintent();
+                    dialog.dismiss();
+                }
+            }
+
+        }).setTitle(Stringvalue(R.string.tishi)).show();
     }
 
     private String Stringvalue(int Rstring) {

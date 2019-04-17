@@ -9,11 +9,14 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import client.ChaoYi.Model.Contenttable;
 
 /**
  * Created by Administrator on 2019/4/9.
@@ -62,5 +65,27 @@ public class Jsonuntil {
             list.add(entry.getValue());
         }
         return list;
+    }
+
+    public static String listtojson(List<?> list) throws IllegalAccessException, InstantiationException{
+
+        for (int i =0;i<list.size();i++){
+            Object model;
+
+//            model=list.get(i).getClass().newInstance();
+
+            Field[] fields =list.get(i).getClass().getDeclaredFields();
+            for (Field field : fields) {
+                if (field.getType() == String.class) {
+                    String key = field.getName();
+                    field.setAccessible(true);
+
+                    Sys.o("TEST", key);
+
+                }
+            }
+
+        }
+        return  null;
     }
 }

@@ -178,15 +178,8 @@ public class ListActivity extends AppCompatActivity {
 //            contenttable.setCt_name(value);
 //            System.out.println(key+" "+value);
 //        }
-        try {
-            Sys.o(TAG,Jsonuntil.listtojson(contentlist));
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        }
 
-        post_data(new Contenttable());
+
         initcontent();
     }
     private void updateWeather() {
@@ -208,8 +201,10 @@ public class ListActivity extends AppCompatActivity {
             switch (msg.what) {
                 case 0:
                     initCats();
+                    break;
                 case 1:
-//                    post_data();
+                    post_data();
+                    break;
                 default:
                     break;
 
@@ -219,9 +214,9 @@ public class ListActivity extends AppCompatActivity {
     };
 
 
-    private void post_data(Object model) {
-//        Okhttp oh = new Okhttp();
-//        oh.postdata(contentlist);
+    private void post_data() {
+        Okhttp oh = new Okhttp();
+        oh.postdata(contentlist);
 //        Sys.o(TAG,model.getClass().toString());
 //        Field[] fields = model.getClass().getDeclaredFields();
 //        for (Field field : fields) {

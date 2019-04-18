@@ -7,8 +7,8 @@ import client.ChaoYi.Sqlitebase.Dbattribute.Attribute;
  */
 
 public class Contenttable {
-    @Attribute(" primary key")
-    public String ct_id;
+    @Attribute(" primary key autoincrement")
+    public Integer ct_id;
     @Attribute("")
     public String ct_data;
     @Attribute("")
@@ -24,11 +24,12 @@ public class Contenttable {
     public void setCt_title(String ct_title) {
         this.ct_title = ct_title;
     }
-    public String getCt_id() {
+
+    public Integer getCt_id() {
         return ct_id;
     }
 
-    public void setCt_id(String ct_id) {
+    public void setCt_id(Integer ct_id) {
         this.ct_id = ct_id;
     }
 

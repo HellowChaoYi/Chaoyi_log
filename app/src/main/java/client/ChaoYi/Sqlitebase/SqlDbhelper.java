@@ -18,7 +18,7 @@ import client.ChaoYi.Sqlitebase.Dbattribute.Attribute;
 
 public class SqlDbhelper extends SQLiteOpenHelper{
     private volatile static SqlDbhelper sqlDbhelper;
-    private static final int DB_VERSION = 2;
+    private static final int DB_VERSION = 3 ;
     private static final String DB_NAME = "Mysql.db";
 
     public static final String LoginTable = Logintable.class.getSimpleName();
@@ -55,6 +55,7 @@ public class SqlDbhelper extends SQLiteOpenHelper{
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Autoonupsql(db,Logintable.class);
+        Autoonupsql(db,Contenttable.class);
         onCreate(db);
     }
 

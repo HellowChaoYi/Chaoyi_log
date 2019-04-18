@@ -69,20 +69,40 @@ public class Jsonuntil {
     }
 
     public static String listtojson(List<?> list) throws IllegalAccessException, InstantiationException{
-        JSONObject jsonObject = new JSONObject();
+        JSONObject jsonObject ;
         JSONArray jsonArray = new JSONArray();
         for (int i =0;i<list.size();i++){
+            jsonObject = new JSONObject();
             Field[] fields =list.get(i).getClass().getDeclaredFields();
             for (Field field : fields) {
                 if (field.getType() == String.class) {
                     String key = field.getName();
                     field.setAccessible(true);
+                    String value =(String) field.get(list.get(i));
                     try {
-                        jsonObject.put(key,(String) field.get(list.get(i)));
+                        if(value ==null){
+                            jsonObject.put(key,"");
+                        }else {
+                            jsonObject.put(key,value);
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     Sys.o("TEST", (String) field.get(list.get(i)));
+                }else if (field.getType() == Integer.class) {
+                    String key = field.getName();
+                    field.setAccessible(true);
+                    String value =String.valueOf(field.get(list.get(i))) ;
+                    try {
+                        if(value ==null){
+                            jsonObject.put(key,"");
+                        }else {
+                            jsonObject.put(key,value);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+//                    Sys.o("TEST", (String) field.get(list.get(i)));
                 }
             }
             jsonArray.put(jsonObject);

@@ -33,6 +33,8 @@ public class Sys {
             field.setAccessible(true);
             if(field.getType()== String.class) {
                 map.put(field.getName(), (String) field.get(model));
+            }else if(field.getType()== Integer.class) {
+                map.put(field.getName(), (String) field.get(model));
             }
         }
         return map;

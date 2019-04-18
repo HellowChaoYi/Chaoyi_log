@@ -22,14 +22,21 @@ import okhttp3.Response;
 public class Okhttp {
     public String url="http://192.168.2.210:8080/webtest/Test";
     public void postdata(List<Contenttable> data){
-//        String result = Jsonuntil.listtojson(data);
+        String result = null;
+        try {
+            result = Jsonuntil.listtojson(data);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");//"类型,字节码"
         //字符串
-        String value = "{\"username\":\"lisi\",\"nickname\":\"李四\"}";
+//        String value = "{\"username\":\"lisi\",\"nickname\":\"李四\"}";
         //1.创建OkHttpClient对象
         OkHttpClient okHttpClient = new OkHttpClient();
         //2.通过RequestBody.create 创建requestBody对象
-        RequestBody requestBody =RequestBody.create(mediaType, value);
+        RequestBody requestBody =RequestBody.create(mediaType, result);
         //3.创建Request对象，设置URL地址，将RequestBody作为post方法的参数传入
         Request request = new Request.Builder().url(url).post(requestBody).build();
         //4.创建一个call对象,参数就是Request请求对象

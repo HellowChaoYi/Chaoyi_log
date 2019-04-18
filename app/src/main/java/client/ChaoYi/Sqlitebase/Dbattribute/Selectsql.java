@@ -37,6 +37,14 @@ public class Selectsql {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                }else if (field.getType() == Integer.class) {
+                    String key = field.getName();
+                    field.setAccessible(true);
+                    try {
+                        field.set(obj, cursor.getInt(cursor.getColumnIndex(key)));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             list.add(obj);
@@ -59,6 +67,14 @@ public class Selectsql {
                     field.setAccessible(true);
                     try {
                         field.set(obj, cursor.getString(cursor.getColumnIndex(key)));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }else  if (field.getType() == Integer.class) {
+                    String key = field.getName();
+                    field.setAccessible(true);
+                    try {
+                        field.set(obj, cursor.getInt(cursor.getColumnIndex(key)));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

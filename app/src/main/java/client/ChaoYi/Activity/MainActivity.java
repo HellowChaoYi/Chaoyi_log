@@ -1,6 +1,7 @@
 package client.ChaoYi.Activity;
 
 
+import android.Manifest;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,8 +15,12 @@ import android.widget.Toast;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.ButterKnife;
 import client.ChaoYi.Model.Contenttable;
 import client.ChaoYi.R;
 import client.ChaoYi.Sqlitebase.SqlDao.Logindatasource;
@@ -23,27 +28,37 @@ import client.ChaoYi.Sqlitebase.SqlDao.Logindatasource;
 import client.ChaoYi.Ui.AlertDialog;
 import client.ChaoYi.Ui.until.StatusBarUtil;
 import client.ChaoYi.Until.GetVercode;
+import client.ChaoYi.Until.Permission.PermissionInterface;
+import client.ChaoYi.Until.PermissionHelper;
 import client.ChaoYi.Until.Sys;
 
 /**
  * 项目练习--company
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PermissionInterface{
     private static final String TAG = "MainActivity";
+    private PermissionHelper mPermissionHelper;
+    @BindView( R.id.imageView )
     public ImageView image ;
-    public TextView name,vercode;
+    @BindViews( {R.id.name,R.id.vercode})
+    public List<TextView> textViews;
+//    public TextView name,vercode;
+    @BindView( R.id.pass_edit )
     public EditText passedit;
     private long mExitTime = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        name = (TextView)findViewById(R.id.name);
-        vercode = (TextView)findViewById(R.id.vercode);
-        passedit = (EditText) findViewById(R.id.pass_edit);
-        image = (ImageView)findViewById(R.id.imageView);
+        ButterKnife.bind(this);
+//        name = (TextView)findViewById(R.id.name);
+//        vercode = (TextView)findViewById(R.id.vercode);
+//        passedit = (EditText) findViewById(R.id.pass_edit);
+//        image = (ImageView)findViewById(R.id.imageView);
         setbackground();
-        vercode.setText(GetVercode.out(getApplicationContext()));
+        mPermissionHelper = new PermissionHelper(this, this);
+        mPermissionHelper.requestPermissions();
+        textViews.get(1).setText(GetVercode.out(getApplicationContext()));
 
         //键盘回车键监听
         passedit.setOnKeyListener(new View.OnKeyListener() {
@@ -124,4 +139,26 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public int getPermissionsRequestCode() {
+        return 0;
+    }
+
+    @Override
+    public String[] getPermissions() {
+        return new String[]{
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+        };
+    }
+
+    @Override
+    public void requestPermissionsSuccess() {
+
+    }
+
+    @Override
+    public void requestPermissionsFail() {
+        finish();
+    }
 }
